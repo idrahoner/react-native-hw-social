@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -27,12 +27,7 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <ImageBackground
-        source={require('./assets/images/photo-bg.jpg')}
-        style={{ flex: 1, justifyContent: 'flex-end', resizeMode: 'containe' }}
-      >
-        <RegistrationScreen />
-      </ImageBackground>
+      <RegistrationScreen />
       <StatusBar style="auto" />
     </View>
   );
