@@ -16,6 +16,9 @@ import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign } from '@expo/vector-icons';
 
+import AuthBackground from '../../components/AuthBackground';
+import InputField from '../../components/InputField';
+
 const initialFormState = { login: '', email: '', password: '' };
 const INPUT_TYPES = Object.freeze({
   login: 'login',
@@ -25,19 +28,13 @@ const INPUT_TYPES = Object.freeze({
 
 export default function RegistrationScreen() {
   const [formValues, setFormValues] = useState(initialFormState);
-  // const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [activeInput, setActiveInput] = useState(null);
   const [image, setImage] = useState(null);
   const emailField = useRef(null);
   const passwordField = useRef(null);
 
-  const handleKeyboardClose = () => {
-    // setIsKeyboardShown(false);
-    Keyboard.dismiss();
-  };
-
   const handleSubmit = () => {
-    handleKeyboardClose();
+    Keyboard.dismiss();
     console.log(formValues);
     setFormValues(initialFormState);
   };
@@ -55,181 +52,78 @@ export default function RegistrationScreen() {
     }
   };
 
+  const handleInputChange = (inputData) => {
+    setFormValues((prevState) => ({ ...prevState, ...inputData }));
+  };
+
   return (
-    <>
-      <ImageBackground
-        source={require('../../assets/images/photo-bg.jpg')}
-        style={{
-          flex: 1,
-          justifyContent: 'flex-end',
-          resizeMode: 'containe',
-        }}
-      >
-        <TouchableWithoutFeedback onPress={handleKeyboardClose}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.keyboardAvoiding}
+    <AuthBackground>
+      <View style={styles.authFrame}>
+        <TouchableOpacity style={styles.avatarContainer} onPress={pickImage}>
+          {image && (
+            <Image source={{ uri: image }} style={styles.avatarImage} />
+          )}
+          <View
+            style={{
+              ...styles.avatarButton,
+              borderColor: image ? '#E8E8E8' : '#FF6C00',
+            }}
           >
-            <View
-              // style={{
-              //   ...styles.authFrame,
-              //   paddingBottom: isKeyboardShown ? 32 : 0,
-              // }}
-              style={styles.authFrame}
-            >
-              <TouchableOpacity
-                style={styles.avatarContainer}
-                onPress={pickImage}
-              >
-                {image && (
-                  <Image source={{ uri: image }} style={styles.avatarImage} />
-                )}
-                <View
-                  style={{
-                    ...styles.avatarButton,
-                    borderColor: image ? '#E8E8E8' : '#FF6C00',
-                  }}
-                >
-                  {image ? (
-                    <AntDesign name="close" size={16} color="#BDBDBD" />
-                  ) : (
-                    <AntDesign name="plus" size={16} color="#FF6C00" />
-                  )}
-                </View>
-              </TouchableOpacity>
-              <Text style={styles.title}>Registration</Text>
-              <View
-                // style={{ ...styles.form, paddingBottom: isKeyboardShown ? 32 : 0 }}
-                style={styles.form}
-              >
-                <View>
-                  <TextInput
-                    style={{
-                      ...styles.input,
-                      backgroundColor:
-                        activeInput === INPUT_TYPES.login
-                          ? '#FFFFFF'
-                          : '#F6F6F6',
-                      borderColor:
-                        activeInput === INPUT_TYPES.login
-                          ? '#FF6C00'
-                          : '#E8E8E8',
-                    }}
-                    placeholder={'Login'}
-                    placeholderTextColor={'#BDBDBD'}
-                    value={formValues.login}
-                    onChangeText={(value) => {
-                      setFormValues((prevState) => ({
-                        ...prevState,
-                        login: value,
-                      }));
-                    }}
-                    onFocus={() => {
-                      setActiveInput(INPUT_TYPES.login);
-                      // setIsKeyboardShown(true);
-                    }}
-                    onBlur={() => {
-                      setActiveInput(null);
-                    }}
-                    onSubmitEditing={() => {
-                      emailField.current.focus();
-                    }}
-                  />
-                </View>
-                <View style={{ marginTop: 16 }}>
-                  <TextInput
-                    style={{
-                      ...styles.input,
-                      backgroundColor:
-                        activeInput === INPUT_TYPES.email
-                          ? '#FFFFFF'
-                          : '#F6F6F6',
-                      borderColor:
-                        activeInput === INPUT_TYPES.email
-                          ? '#FF6C00'
-                          : '#E8E8E8',
-                    }}
-                    inputMode={'email'}
-                    placeholder={'Email'}
-                    placeholderTextColor={'#BDBDBD'}
-                    value={formValues.email}
-                    onChangeText={(value) =>
-                      setFormValues((prevState) => ({
-                        ...prevState,
-                        email: value,
-                      }))
-                    }
-                    onFocus={() => {
-                      setActiveInput(INPUT_TYPES.email);
-                      // setIsKeyboardShown(true);
-                    }}
-                    onBlur={() => {
-                      setActiveInput(null);
-                    }}
-                    onSubmitEditing={() => {
-                      passwordField.current.focus();
-                    }}
-                    ref={emailField}
-                  />
-                </View>
-                <View style={{ marginTop: 16 }}>
-                  <TextInput
-                    style={{
-                      ...styles.input,
-                      backgroundColor:
-                        activeInput === INPUT_TYPES.password
-                          ? '#FFFFFF'
-                          : '#F6F6F6',
-                      borderColor:
-                        activeInput === INPUT_TYPES.password
-                          ? '#FF6C00'
-                          : '#E8E8E8',
-                    }}
-                    placeholder={'Password'}
-                    placeholderTextColor={'#BDBDBD'}
-                    secureTextEntry
-                    value={formValues.password}
-                    onChangeText={(value) => {
-                      setFormValues((prevState) => ({
-                        ...prevState,
-                        password: value,
-                      }));
-                    }}
-                    onFocus={() => {
-                      setActiveInput(INPUT_TYPES.password);
-                      // setIsKeyboardShown(true);
-                    }}
-                    onBlur={() => {
-                      setActiveInput(null);
-                    }}
-                    onSubmitEditing={() => {
-                      handleKeyboardClose();
-                    }}
-                    ref={passwordField}
-                  />
-                </View>
-                <TouchableOpacity
-                  style={styles.submitButton}
-                  activeOpacity={0.6}
-                  onPress={handleSubmit}
-                >
-                  <Text style={styles.submitButtonText}>Register</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
-      </ImageBackground>
-      <StatusBar style="auto" />
-    </>
+            {image ? (
+              <AntDesign name="close" size={16} color="#BDBDBD" />
+            ) : (
+              <AntDesign name="plus" size={16} color="#FF6C00" />
+            )}
+          </View>
+        </TouchableOpacity>
+        <Text style={styles.title}>Registration</Text>
+        <View style={styles.form}>
+          <InputField
+            name={'login'}
+            placeholder={'Login'}
+            value={formValues.login}
+            onChangeText={handleInputChange}
+            onSubmitEditing={() => {
+              emailField.current.focus();
+            }}
+          />
+          <InputField
+            name={'email'}
+            placeholder={'Email'}
+            value={formValues.email}
+            reference={emailField}
+            onChangeText={handleInputChange}
+            onSubmitEditing={() => {
+              passwordField.current.focus();
+            }}
+            containerStyle={{ marginTop: 16 }}
+          />
+          <InputField
+            name={'password'}
+            placeholder={'Password'}
+            value={formValues.password}
+            reference={passwordField}
+            secure
+            onChangeText={handleInputChange}
+            onSubmitEditing={() => {
+              Keyboard.dismiss();
+            }}
+            containerStyle={{ marginTop: 16 }}
+          />
+          <TouchableOpacity
+            style={styles.submitButton}
+            activeOpacity={0.6}
+            onPress={handleSubmit}
+          >
+            <Text style={styles.submitButtonText}>Register</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </AuthBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  keyboardAvoiding: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
   authFrame: {
     flex: 0.6,
     justifyContent: 'flex-start',
@@ -269,15 +163,6 @@ const styles = StyleSheet.create({
   form: {
     marginTop: 32,
     marginHorizontal: 16,
-  },
-  input: {
-    height: 50,
-    width: '100%',
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 8,
-    fontSize: 16,
-    fontFamily: 'Roboto-regular',
   },
   submitButton: {
     justifyContent: 'center',
