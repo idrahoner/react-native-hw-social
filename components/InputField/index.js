@@ -6,10 +6,12 @@ export default function InputField({
   placeholder,
   value,
   reference,
+  inputMode,
   secure = false,
   onChangeText,
   onSubmitEditing,
   containerStyle = {},
+  setIsKeyboardOpen,
 }) {
   const [isActive, setIsActive] = useState(false);
 
@@ -20,10 +22,14 @@ export default function InputField({
         placeholderTextColor={'#BDBDBD'}
         value={value}
         ref={reference}
+        inputMode={inputMode}
         secureTextEntry={secure}
         onChangeText={(value) => onChangeText({ [name]: value })}
         onSubmitEditing={onSubmitEditing}
-        onFocus={() => setIsActive(true)}
+        onFocus={() => {
+          setIsActive(true);
+          setIsKeyboardOpen(true);
+        }}
         onBlur={() => setIsActive(false)}
         style={{
           ...styles.input,

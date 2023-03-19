@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign } from '@expo/vector-icons';
+import AvatarImage from '../AvatarImage';
 
-export default function AvatarPicker({ name, screenWidth, onAvatarChange }) {
+export default function AvatarPicker({ name, onAvatarChange }) {
   const [avatar, setAvatar] = useState(null);
 
   const pickAvatar = async () => {
@@ -22,7 +23,7 @@ export default function AvatarPicker({ name, screenWidth, onAvatarChange }) {
 
   return (
     <TouchableOpacity style={styles.avatarContainer} onPress={pickAvatar}>
-      {avatar && <Image source={{ uri: avatar }} style={styles.avatarImage} />}
+      {avatar && <AvatarImage avatarURI={avatar} />}
       <View
         style={{
           ...styles.avatarButton,
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F6',
     borderRadius: 16,
   },
-  avatarImage: { height: '100%', width: '100%', borderRadius: 16 },
+
   avatarButton: {
     position: 'absolute',
     left: 107,

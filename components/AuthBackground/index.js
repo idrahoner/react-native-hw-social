@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  ImageBackground,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Platform,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { StyleSheet, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 export default function AuthBackground({ children }) {
@@ -15,18 +8,7 @@ export default function AuthBackground({ children }) {
         source={require('../../assets/images/photo-bg.jpg')}
         style={styles.backgroundImage}
       >
-        <TouchableWithoutFeedback
-          onPress={() => {
-            Keyboard.dismiss();
-          }}
-        >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.keyboardAvoiding}
-          >
-            {children}
-          </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
+        {children}
       </ImageBackground>
       <StatusBar style="auto" />
     </>
@@ -36,10 +18,5 @@ export default function AuthBackground({ children }) {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    justifyContent: 'flex-end',
-  },
-  keyboardAvoiding: {
-    flex: 1,
-    justifyContent: 'flex-end',
   },
 });
