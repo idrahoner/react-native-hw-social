@@ -36,6 +36,7 @@ export default function AuthBackground({ children }) {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
+    justifyContent: 'flex-end',
   },
   keyboardAvoiding: {
     flex: 1,

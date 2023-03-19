@@ -13,8 +13,6 @@ export default function InputField({
 }) {
   const [isActive, setIsActive] = useState(false);
 
-  //  TODO: check is reference working
-
   return (
     <View style={containerStyle}>
       <TextInput

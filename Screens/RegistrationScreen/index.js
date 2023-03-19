@@ -1,55 +1,39 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   StyleSheet,
-  ImageBackground,
-  Image,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
   Keyboard,
-  TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import * as ImagePicker from 'expo-image-picker';
-import { AntDesign } from '@expo/vector-icons';
-
 import AuthBackground from '../../components/AuthBackground';
 import InputField from '../../components/InputField';
+import AvatarPicker from '../../components/AvatarPicker';
 
 const initialFormState = { login: '', email: '', password: '' };
-const INPUT_TYPES = Object.freeze({
-  login: 'login',
-  email: 'email',
-  password: 'password',
-});
+const screenDimensions = Dimensions.get('screen');
 
 export default function RegistrationScreen() {
   const [formValues, setFormValues] = useState(initialFormState);
-  const [activeInput, setActiveInput] = useState(null);
-  const [image, setImage] = useState(null);
+  const [dimensions, setDimensions] = useState({
+    screen: screenDimensions,
+  });
   const emailField = useRef(null);
   const passwordField = useRef(null);
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener('change', ({ screen }) => {
+      console.log({ screen });
+      setDimensions({ screen });
+    });
+    return () => subscription?.remove();
+  }, []);
 
   const handleSubmit = () => {
     Keyboard.dismiss();
     console.log(formValues);
     setFormValues(initialFormState);
-  };
-
-  const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
   };
 
   const handleInputChange = (inputData) => {
@@ -59,23 +43,11 @@ export default function RegistrationScreen() {
   return (
     <AuthBackground>
       <View style={styles.authFrame}>
-        <TouchableOpacity style={styles.avatarContainer} onPress={pickImage}>
-          {image && (
-            <Image source={{ uri: image }} style={styles.avatarImage} />
-          )}
-          <View
-            style={{
-              ...styles.avatarButton,
-              borderColor: image ? '#E8E8E8' : '#FF6C00',
-            }}
-          >
-            {image ? (
-              <AntDesign name="close" size={16} color="#BDBDBD" />
-            ) : (
-              <AntDesign name="plus" size={16} color="#FF6C00" />
-            )}
-          </View>
-        </TouchableOpacity>
+        <AvatarPicker
+          name={'avatar'}
+          screenWidth={dimensions.screen.width}
+          onAvatarChange={handleInputChange}
+        />
         <Text style={styles.title}>Registration</Text>
         <View style={styles.form}>
           <InputField
@@ -130,29 +102,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-  },
-  avatarContainer: {
-    position: 'absolute',
-    top: -60,
-    left: '50%',
-    transform: [{ translateX: -60 }],
-    height: 120,
-    width: 120,
-    backgroundColor: '#F6F6F6',
-    borderRadius: 16,
-  },
-  avatarImage: { height: '100%', width: '100%', borderRadius: 16 },
-  avatarButton: {
-    position: 'absolute',
-    left: 107,
-    bottom: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 25,
-    height: 25,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderRadius: 50,
   },
   title: {
     fontSize: 30,
