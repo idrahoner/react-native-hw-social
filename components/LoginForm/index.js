@@ -1,19 +1,17 @@
 import { useState, useRef } from 'react';
 import { StyleSheet, View, Text, Keyboard } from 'react-native';
 import InputField from '../InputField';
-import AvatarPicker from '../AvatarPicker';
 import PrimaryButton from '../PrimaryButton';
 import TransparentButton from '../TransparentButton';
 
-const initialFormState = { login: '', email: '', password: '' };
+const initialFormState = { email: '', password: '' };
 
-export default function RegistrationForm({
+export default function LoginForm({
   onSubmit,
   isKeyboardOpen,
   setIsKeyboardOpen,
 }) {
   const [formValues, setFormValues] = useState(initialFormState);
-  const emailField = useRef(null);
   const passwordField = useRef(null);
 
   const handleSubmit = () => {
@@ -28,30 +26,16 @@ export default function RegistrationForm({
 
   return (
     <View style={{ ...styles.form, marginBottom: isKeyboardOpen ? 0 : 78 }}>
-      <AvatarPicker name={'avatar'} onAvatarChange={handleFieldChange} />
-      <Text style={styles.title}>Registration</Text>
-      <InputField
-        name={'login'}
-        placeholder={'Login'}
-        value={formValues.login}
-        onChangeText={handleFieldChange}
-        onSubmitEditing={() => {
-          emailField.current.focus();
-        }}
-        containerStyle={{ marginTop: 33 }}
-        setIsKeyboardOpen={setIsKeyboardOpen}
-      />
+      <Text style={styles.title}>Login</Text>
       <InputField
         name={'email'}
         placeholder={'Email'}
         value={formValues.email}
-        reference={emailField}
-        inputMode={'email'}
         onChangeText={handleFieldChange}
         onSubmitEditing={() => {
           passwordField.current.focus();
         }}
-        containerStyle={{ marginTop: 16 }}
+        containerStyle={{ marginTop: 32 }}
         setIsKeyboardOpen={setIsKeyboardOpen}
       />
       <InputField
@@ -69,14 +53,14 @@ export default function RegistrationForm({
         setIsKeyboardOpen={setIsKeyboardOpen}
       />
       <PrimaryButton
-        title={'Register'}
+        title={'Login'}
         style={styles.submitButton}
         onPress={handleSubmit}
       />
       <TransparentButton
-        title={'Already have an account? Sign in'}
+        title={'Don`t have an account? Sign up'}
         onPress={() => {
-          console.log('this is navigation button');
+          console.log('this is transparent button click');
         }}
       />
     </View>
@@ -89,7 +73,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    marginTop: 92,
+    marginTop: 32,
     textAlign: 'center',
     fontFamily: 'Roboto-medium',
   },

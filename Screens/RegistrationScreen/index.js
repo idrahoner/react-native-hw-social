@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
-import RegistrationForm from '../../components/RegistrationForm';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
+import RegistrationForm from '../../components/RegistrationForm';
 
 const screenDimensions = Dimensions.get('screen');
 

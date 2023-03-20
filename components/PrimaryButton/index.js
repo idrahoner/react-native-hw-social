@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export default function TransparentButton({ title, style, onPress }) {
+export default function PrimaryButton({ title, style, onPress }) {
   return (
     <TouchableOpacity
       style={{ ...styles.button, ...style }}
@@ -17,6 +17,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+    borderRadius: 100,
+    backgroundColor: '#FF6C00',
   },
-  title: { fontFamily: 'Roboto-regular', fontSize: 16, color: '#1B4371' },
+  title: {
+    fontSize: 16,
+    fontFamily: 'Roboto-regular',
+    color: '#FFFFFF',
+  },
 });
