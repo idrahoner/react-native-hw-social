@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
-import AuthBackground from '../../components/AuthBackground';
+import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
 import RegistrationForm from '../../components/RegistrationForm';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
@@ -21,7 +21,7 @@ export default function RegistrationScreen() {
   }, []);
 
   return (
-    <AuthBackground>
+    <BackgroundWithImage>
       <KeyboardShutter setIsKeyboardOpen={setIsKeyboardOpen}>
         <FrameRoundedUpperEdge>
           <RegistrationForm
@@ -31,6 +31,6 @@ export default function RegistrationScreen() {
           />
         </FrameRoundedUpperEdge>
       </KeyboardShutter>
-    </AuthBackground>
+    </BackgroundWithImage>
   );
 }

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import InputField from '../InputField';
 import AvatarPicker from '../AvatarPicker';
+import TransparentButton from '../TransparentButton';
 
 const initialFormState = { login: '', email: '', password: '' };
 
@@ -79,18 +80,19 @@ export default function RegistrationForm({
       >
         <Text style={styles.submitButtonText}>Register</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navigationButton}>
-        <Text>Already have an account? Sign in</Text>
-      </TouchableOpacity>
+      <TransparentButton
+        title={'Already have an account? Sign in'}
+        onPress={() => {
+          console.log('this is navigation button');
+        }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   form: {
-    // marginTop: 32,
     marginHorizontal: 16,
-    // marginBottom: 78,
   },
   title: {
     fontSize: 30,
@@ -110,9 +112,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Roboto-regular',
     color: '#FFFFFF',
-  },
-  navigationButton: {
-    alignItems: 'center',
-    marginTop: 16,
   },
 });

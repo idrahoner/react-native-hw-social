@@ -1,7 +1,7 @@
 import { StyleSheet, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-export default function AuthBackground({ children }) {
+export default function BackgroundWithImage({ children }) {
   return (
     <>
       <ImageBackground

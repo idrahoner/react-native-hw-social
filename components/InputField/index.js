@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
+import TransparentButton from '../TransparentButton';
 
 export default function InputField({
   name,
@@ -14,16 +15,17 @@ export default function InputField({
   setIsKeyboardOpen,
 }) {
   const [isActive, setIsActive] = useState(false);
+  const [isSecure, setIsSecure] = useState(secure);
 
   return (
-    <View style={containerStyle}>
+    <View style={{ ...styles.container, ...containerStyle }}>
       <TextInput
         placeholder={placeholder}
         placeholderTextColor={'#BDBDBD'}
         value={value}
         ref={reference}
         inputMode={inputMode}
-        secureTextEntry={secure}
+        secureTextEntry={isSecure}
         onChangeText={(value) => onChangeText({ [name]: value })}
         onSubmitEditing={onSubmitEditing}
         onFocus={() => {
@@ -37,15 +39,25 @@ export default function InputField({
           borderColor: isActive ? '#FF6C00' : '#E8E8E8',
         }}
       />
+      {secure && (
+        <TransparentButton
+          title={isSecure ? 'Show' : 'Hide'}
+          style={{ position: 'absolute', top: 0, right: 0 }}
+          onPress={() => {
+            setIsSecure(!isSecure);
+          }}
+        />
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: { height: 50, width: '100%' },
   input: {
-    height: 50,
+    height: '100%',
     width: '100%',
-    padding: 10,
+    padding: 16,
     borderWidth: 1,
     borderRadius: 8,
     fontSize: 16,
