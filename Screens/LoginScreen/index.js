@@ -27,7 +27,6 @@ export default function LoginScreen({ navigation }) {
         <FrameRoundedUpperEdge>
           <LoginForm
             onSubmit={console.log}
-            isKeyboardOpen={isKeyboardOpen}
             setIsKeyboardOpen={setIsKeyboardOpen}
           />
           <TransparentButton

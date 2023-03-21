@@ -11,7 +11,7 @@ export default function AvatarPicker({ name, onAvatarChange }) {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -22,7 +22,11 @@ export default function AvatarPicker({ name, onAvatarChange }) {
   };
 
   return (
-    <TouchableOpacity style={styles.avatarContainer} onPress={pickAvatar}>
+    <TouchableOpacity
+      style={styles.avatarContainer}
+      onPress={pickAvatar}
+      activeOpacity={0.6}
+    >
       {avatar && <AvatarImage avatarURI={avatar} />}
       <View
         style={{

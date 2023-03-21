@@ -6,11 +6,7 @@ import PrimaryButton from '../PrimaryButton';
 
 const initialFormState = { login: '', email: '', password: '' };
 
-export default function RegistrationForm({
-  onSubmit,
-  isKeyboardOpen,
-  setIsKeyboardOpen,
-}) {
+export default function RegistrationForm({ onSubmit, setIsKeyboardOpen }) {
   const [formValues, setFormValues] = useState(initialFormState);
   const emailField = useRef(null);
   const passwordField = useRef(null);
@@ -87,7 +83,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-medium',
   },
   submitButton: {
-    height: 50,
     marginTop: 43,
   },
 });

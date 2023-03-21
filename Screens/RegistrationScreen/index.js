@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
@@ -27,7 +27,6 @@ export default function RegistrationScreen({ navigation }) {
         <FrameRoundedUpperEdge>
           <RegistrationForm
             onSubmit={console.log}
-            isKeyboardOpen={isKeyboardOpen}
             setIsKeyboardOpen={setIsKeyboardOpen}
           />
           <TransparentButton
