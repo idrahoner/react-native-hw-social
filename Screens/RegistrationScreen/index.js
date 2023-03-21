@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
@@ -32,6 +32,11 @@ export default function RegistrationScreen({ navigation }) {
           />
           <TransparentButton
             title={'Already have an account? Sign in'}
+            style={{
+              marginBottom: isKeyboardOpen
+                ? -120
+                : Math.floor(dimensions.screen.height / 10),
+            }}
             onPress={() => {
               setIsKeyboardOpen(false);
               navigation.navigate('Login');

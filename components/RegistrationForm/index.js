@@ -26,7 +26,7 @@ export default function RegistrationForm({
   };
 
   return (
-    <View style={{ ...styles.form, marginBottom: isKeyboardOpen ? 0 : 78 }}>
+    <View style={styles.form}>
       <AvatarPicker name={'avatar'} onAvatarChange={handleFieldChange} />
       <Text style={styles.title}>Registration</Text>
       <InputField

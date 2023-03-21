@@ -24,7 +24,7 @@ export default function LoginForm({
   };
 
   return (
-    <View style={{ ...styles.form, marginBottom: isKeyboardOpen ? 0 : 78 }}>
+    <View style={styles.form}>
       <Text style={styles.title}>Login</Text>
       <InputField
         name={'email'}
