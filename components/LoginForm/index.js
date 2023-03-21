@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import { StyleSheet, View, Text, Keyboard } from 'react-native';
 import InputField from '../InputField';
 import PrimaryButton from '../PrimaryButton';
-import TransparentButton from '../TransparentButton';
 
 const initialFormState = { email: '', password: '' };
 
@@ -56,12 +55,6 @@ export default function LoginForm({
         title={'Login'}
         style={styles.submitButton}
         onPress={handleSubmit}
-      />
-      <TransparentButton
-        title={'Don`t have an account? Sign up'}
-        onPress={() => {
-          console.log('this is transparent button click');
-        }}
       />
     </View>
   );

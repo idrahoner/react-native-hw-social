@@ -4,10 +4,11 @@ import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import RegistrationForm from '../../components/RegistrationForm';
+import TransparentButton from '../../components/TransparentButton';
 
 const screenDimensions = Dimensions.get('screen');
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({ navigation }) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [dimensions, setDimensions] = useState({
     screen: screenDimensions,
@@ -28,6 +29,13 @@ export default function RegistrationScreen() {
             onSubmit={console.log}
             isKeyboardOpen={isKeyboardOpen}
             setIsKeyboardOpen={setIsKeyboardOpen}
+          />
+          <TransparentButton
+            title={'Already have an account? Sign in'}
+            onPress={() => {
+              setIsKeyboardOpen(false);
+              navigation.navigate('Login');
+            }}
           />
         </FrameRoundedUpperEdge>
       </KeyboardShutter>

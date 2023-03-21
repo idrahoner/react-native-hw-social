@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Keyboard } from 'react-native';
 import InputField from '../InputField';
 import AvatarPicker from '../AvatarPicker';
 import PrimaryButton from '../PrimaryButton';
-import TransparentButton from '../TransparentButton';
 
 const initialFormState = { login: '', email: '', password: '' };
 
@@ -72,12 +71,6 @@ export default function RegistrationForm({
         title={'Register'}
         style={styles.submitButton}
         onPress={handleSubmit}
-      />
-      <TransparentButton
-        title={'Already have an account? Sign in'}
-        onPress={() => {
-          console.log('this is navigation button');
-        }}
       />
     </View>
   );
