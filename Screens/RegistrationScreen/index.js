@@ -1,25 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Dimensions } from 'react-native';
+import { useState } from 'react';
+import { useDimensions } from '../../hooks/dimensions';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import RegistrationForm from '../../components/RegistrationForm';
 import TransparentButton from '../../components/TransparentButton';
 
-const screenDimensions = Dimensions.get('screen');
-
 export default function RegistrationScreen({ navigation }) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
-  const [dimensions, setDimensions] = useState({
-    screen: screenDimensions,
-  });
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({ screen }) => {
-      setDimensions({ screen });
-    });
-    return () => subscription?.remove();
-  }, []);
+  const { dimensions } = useDimensions();
 
   return (
     <BackgroundWithImage>

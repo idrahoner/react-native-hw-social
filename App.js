@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import DimensionsProvider from './components/DimensionsProvider';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
 
@@ -30,20 +31,22 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <AuthStack.Navigator>
-          <AuthStack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <AuthStack.Screen
-            name="Registration"
-            component={RegistrationScreen}
-            options={{ headerShown: false }}
-          />
-        </AuthStack.Navigator>
-      </NavigationContainer>
+      <DimensionsProvider>
+        <NavigationContainer>
+          <AuthStack.Navigator>
+            <AuthStack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+            <AuthStack.Screen
+              name="Registration"
+              component={RegistrationScreen}
+              options={{ headerShown: false }}
+            />
+          </AuthStack.Navigator>
+        </NavigationContainer>
+      </DimensionsProvider>
     </View>
   );
 }
