@@ -5,6 +5,7 @@ import KeyboardShutter from '../../components/KeyboardShutter';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import LoginForm from '../../components/LoginForm';
 import TransparentButton from '../../components/TransparentButton';
+
 export default function LoginScreen({ navigation }) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const { dimensions } = useDimensions();
