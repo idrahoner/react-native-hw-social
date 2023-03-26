@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
-import { DimensionsContext, useDimensions } from '../../hooks/dimensions';
+import { DimensionsContext } from '../../hooks/dimensions';
 
 const screenDimensions = Dimensions.get('screen');
 

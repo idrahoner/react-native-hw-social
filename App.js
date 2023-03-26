@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,11 +8,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DimensionsProvider from './components/DimensionsProvider';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
+import Home from './Screens/Home';
+import CreatePostsScreen from './Screens/CreatePostsScreen';
+import MapScreen from './Screens/MapScreen';
 
 SplashScreen.preventAutoHideAsync();
-const AuthStack = createNativeStackNavigator();
+const MainStack = createNativeStackNavigator();
 
 export default function App() {
+  const [isAuth, setIsAuth] = useState(true);
   const [fontsLoaded] = useFonts({
     'Roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
     'Roboto-medium': require('./assets/fonts/Roboto-Medium.ttf'),
@@ -33,18 +37,35 @@ export default function App() {
     <View style={styles.container} onLayout={onLayoutRootView}>
       <DimensionsProvider>
         <NavigationContainer>
-          <AuthStack.Navigator>
-            <AuthStack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
-            <AuthStack.Screen
-              name="Registration"
-              component={RegistrationScreen}
-              options={{ headerShown: false }}
-            />
-          </AuthStack.Navigator>
+          <MainStack.Navigator>
+            {!isAuth ? (
+              <>
+                <MainStack.Screen
+                  name="Login"
+                  component={LoginScreen}
+                  options={{ headerShown: false }}
+                />
+                <MainStack.Screen
+                  name="Registration"
+                  component={RegistrationScreen}
+                  options={{ headerShown: false }}
+                />
+              </>
+            ) : (
+              <>
+                <MainStack.Screen
+                  name="Home"
+                  component={Home}
+                  options={{ headerShown: false }}
+                />
+                <MainStack.Screen
+                  name="CreatePost"
+                  component={CreatePostsScreen}
+                />
+                <MainStack.Screen name="MapScreen" component={MapScreen} />
+              </>
+            )}
+          </MainStack.Navigator>
         </NavigationContainer>
       </DimensionsProvider>
     </View>
