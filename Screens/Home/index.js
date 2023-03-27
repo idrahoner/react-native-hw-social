@@ -1,5 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialIcons } from '@expo/vector-icons';
 import PostsScreen from '../PostsScreen';
 import ProfileScreen from '../ProfileScreen';
 import CreatePostsScreen from '../CreatePostsScreen';
@@ -9,7 +10,26 @@ const MainTab = createBottomTabNavigator();
 export default function Home() {
   return (
     <MainTab.Navigator>
-      <MainTab.Screen name="Posts" component={PostsScreen} />
+      <MainTab.Screen
+        name="Posts"
+        component={PostsScreen}
+        options={{
+          headerRight: () => (
+            <TouchableOpacity
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: 10,
+              }}
+              onPress={() => {
+                console.log('logout!');
+              }}
+            >
+              <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <MainTab.Screen
         name="Create"
         component={CreatePostsScreen}
@@ -20,7 +40,11 @@ export default function Home() {
           },
         })}
       />
-      <MainTab.Screen name="Profile" component={ProfileScreen} />
+      <MainTab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
     </MainTab.Navigator>
   );
 }

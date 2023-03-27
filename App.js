@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AntDesign } from '@expo/vector-icons';
 
 import DimensionsProvider from './components/DimensionsProvider';
 import LoginScreen from './Screens/LoginScreen';
@@ -11,6 +12,7 @@ import RegistrationScreen from './Screens/RegistrationScreen';
 import Home from './Screens/Home';
 import CreatePostsScreen from './Screens/CreatePostsScreen';
 import MapScreen from './Screens/MapScreen';
+import CommentsScreen from './Screens/CommentsScreen';
 
 SplashScreen.preventAutoHideAsync();
 const MainStack = createNativeStackNavigator();
@@ -61,8 +63,78 @@ export default function App() {
                 <MainStack.Screen
                   name="CreatePost"
                   component={CreatePostsScreen}
+                  options={({ navigation, route }) => ({
+                    headerBackVisible: false,
+                    headerLeft: (props) => (
+                      <TouchableOpacity
+                        {...props}
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                        onPress={() => {
+                          navigation.goBack();
+                        }}
+                      >
+                        <AntDesign
+                          name="arrowleft"
+                          size={24}
+                          color="rgba(33, 33, 33, 0.8)"
+                        />
+                      </TouchableOpacity>
+                    ),
+                  })}
                 />
-                <MainStack.Screen name="MapScreen" component={MapScreen} />
+                <MainStack.Screen
+                  name="MapScreen"
+                  component={MapScreen}
+                  options={({ navigation, route }) => ({
+                    headerBackVisible: false,
+                    headerLeft: (props) => (
+                      <TouchableOpacity
+                        {...props}
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                        onPress={() => {
+                          navigation.goBack();
+                        }}
+                      >
+                        <AntDesign
+                          name="arrowleft"
+                          size={24}
+                          color="rgba(33, 33, 33, 0.8)"
+                        />
+                      </TouchableOpacity>
+                    ),
+                  })}
+                />
+                <MainStack.Screen
+                  name="CommentsScreen"
+                  component={CommentsScreen}
+                  options={({ navigation, route }) => ({
+                    headerBackVisible: false,
+                    headerLeft: (props) => (
+                      <TouchableOpacity
+                        {...props}
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                        onPress={() => {
+                          navigation.goBack();
+                        }}
+                      >
+                        <AntDesign
+                          name="arrowleft"
+                          size={24}
+                          color="rgba(33, 33, 33, 0.8)"
+                        />
+                      </TouchableOpacity>
+                    ),
+                  })}
+                />
               </>
             )}
           </MainStack.Navigator>
