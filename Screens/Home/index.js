@@ -1,11 +1,24 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
+import { SimpleLineIcons } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import PostsScreen from '../PostsScreen';
 import ProfileScreen from '../ProfileScreen';
 import CreatePostsScreen from '../CreatePostsScreen';
 
 const MainTab = createBottomTabNavigator();
+
+{
+  /* 
+        <TouchableOpacity>
+          <Fontisto name="plus-a" size={24} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Feather name="user" size={24} color="black" />
+        </TouchableOpacity> */
+}
 
 export default function Home() {
   return (
@@ -28,6 +41,14 @@ export default function Home() {
               <MaterialIcons name="logout" size={24} color="#BDBDBD" />
             </TouchableOpacity>
           ),
+          tabBarIcon: () => (
+            <SimpleLineIcons
+              name="grid"
+              size={24}
+              color={'rgba(33, 33, 33, 0.8)'}
+            />
+          ),
+          tabBarShowLabel: false,
         }}
       />
       <MainTab.Screen
@@ -39,11 +60,34 @@ export default function Home() {
             navigation.navigate('CreatePost');
           },
         })}
+        options={{
+          tabBarIcon: () => (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 70,
+                height: 40,
+                backgroundColor: '#FF6C00',
+                borderRadius: 20,
+              }}
+            >
+              <Fontisto name="plus-a" size={13} color={'#FFFFFF'} />
+            </View>
+          ),
+          tabBarShowLabel: false,
+        }}
       />
       <MainTab.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Feather name="user" size={24} color={'rgba(33, 33, 33, 0.8)'} />
+          ),
+          tabBarShowLabel: false,
+        }}
       />
     </MainTab.Navigator>
   );
