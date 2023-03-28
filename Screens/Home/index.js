@@ -1,37 +1,23 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialIcons } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import PostsScreen from '../PostsScreen';
 import ProfileScreen from '../ProfileScreen';
 import CreatePostsScreen from '../CreatePostsScreen';
-import { useUser } from '../../hooks';
+import LogoutButton from '../../components/LogoutButton';
 
 const MainTab = createBottomTabNavigator();
 
 export default function Home() {
-  const { logoutUser } = useUser();
-
   return (
     <MainTab.Navigator>
       <MainTab.Screen
         name="Posts"
         component={PostsScreen}
         options={{
-          headerRight: () => (
-            <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginRight: 10,
-              }}
-              onPress={logoutUser}
-            >
-              <MaterialIcons name="logout" size={24} color="#BDBDBD" />
-            </TouchableOpacity>
-          ),
+          headerRight: () => <LogoutButton style={{ marginRight: 10 }} />,
           tabBarIcon: () => (
             <SimpleLineIcons
               name="grid"
@@ -53,16 +39,7 @@ export default function Home() {
         })}
         options={{
           tabBarIcon: () => (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 70,
-                height: 40,
-                backgroundColor: '#FF6C00',
-                borderRadius: 20,
-              }}
-            >
+            <View style={styles.createPostButton}>
               <Fontisto name="plus-a" size={13} color={'#FFFFFF'} />
             </View>
           ),
@@ -85,10 +62,12 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+  createPostButton: {
     justifyContent: 'center',
+    alignItems: 'center',
+    width: 70,
+    height: 40,
+    backgroundColor: '#FF6C00',
+    borderRadius: 20,
   },
 });

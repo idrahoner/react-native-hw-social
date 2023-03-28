@@ -1,7 +1,5 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AntDesign } from '@expo/vector-icons';
 
 import { useUser } from '../../hooks/user';
 import LoginScreen from '../../Screens/LoginScreen';
@@ -10,6 +8,7 @@ import Home from '../../Screens/Home';
 import CreatePostsScreen from '../../Screens/CreatePostsScreen';
 import MapScreen from '../../Screens/MapScreen';
 import CommentsScreen from '../../Screens/CommentsScreen';
+import GoBackButton from '../GoBackButton';
 
 const MainStack = createNativeStackNavigator();
 
@@ -45,22 +44,7 @@ export default function Router() {
               options={({ navigation, route }) => ({
                 headerBackVisible: false,
                 headerLeft: (props) => (
-                  <TouchableOpacity
-                    {...props}
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}
-                  >
-                    <AntDesign
-                      name="arrowleft"
-                      size={24}
-                      color="rgba(33, 33, 33, 0.8)"
-                    />
-                  </TouchableOpacity>
+                  <GoBackButton navigation={navigation} {...props} />
                 ),
               })}
             />
@@ -70,22 +54,7 @@ export default function Router() {
               options={({ navigation, route }) => ({
                 headerBackVisible: false,
                 headerLeft: (props) => (
-                  <TouchableOpacity
-                    {...props}
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}
-                  >
-                    <AntDesign
-                      name="arrowleft"
-                      size={24}
-                      color="rgba(33, 33, 33, 0.8)"
-                    />
-                  </TouchableOpacity>
+                  <GoBackButton navigation={navigation} {...props} />
                 ),
               })}
             />
@@ -95,22 +64,7 @@ export default function Router() {
               options={({ navigation, route }) => ({
                 headerBackVisible: false,
                 headerLeft: (props) => (
-                  <TouchableOpacity
-                    {...props}
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}
-                  >
-                    <AntDesign
-                      name="arrowleft"
-                      size={24}
-                      color="rgba(33, 33, 33, 0.8)"
-                    />
-                  </TouchableOpacity>
+                  <GoBackButton navigation={navigation} {...props} />
                 ),
               })}
             />
