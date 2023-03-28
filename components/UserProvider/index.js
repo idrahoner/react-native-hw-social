@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { UserContext } from '../../hooks';
+import { UserContext } from '../../hooks/user';
 
 const initialUserAuthData = { avatar: '', login: '', email: '', password: '' };
 
@@ -22,7 +22,7 @@ export default function UserProvider({ children }) {
   };
 
   return (
-    <UserContext
+    <UserContext.Provider
       value={{
         isAuthorized,
         userAuthData,
@@ -32,6 +32,6 @@ export default function UserProvider({ children }) {
       }}
     >
       {children}
-    </UserContext>
+    </UserContext.Provider>
   );
 }
