@@ -6,10 +6,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import UserInfo from '../../components/UserInfo';
 
 export default function PostsScreen() {
   return (
     <View style={styles.container}>
+      <UserInfo />
       <Text>This is PostsScreen component!</Text>
       <TouchableOpacity>
         <AntDesign name="arrowleft" size={24} color="black" />
@@ -69,6 +71,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });
