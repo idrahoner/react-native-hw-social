@@ -1,12 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { useUser } from '../../hooks';
+import BackgroundWithImage from '../../components/BackgroundWithImage';
+import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
+import AvatarPicker from '../../components/AvatarPicker';
 
 export default function ProfileScreen() {
+  const { updateUserData, userAuthData } = useUser();
   return (
-    <View style={styles.container}>
-      <Text>This is ProfileScreen component!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <BackgroundWithImage style={{ justifyContent: 'flex-end' }}>
+      <FrameRoundedUpperEdge style={{ minHeight: '70%' }}>
+        <AvatarPicker
+          name="avatar"
+          onAvatarChange={updateUserData}
+          defaultAvatar={userAuthData.avatar}
+        />
+        <StatusBar style="auto" />
+      </FrameRoundedUpperEdge>
+    </BackgroundWithImage>
   );
 }
 
