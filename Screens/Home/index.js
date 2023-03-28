@@ -10,16 +10,6 @@ import CreatePostsScreen from '../CreatePostsScreen';
 
 const MainTab = createBottomTabNavigator();
 
-{
-  /* 
-        <TouchableOpacity>
-          <Fontisto name="plus-a" size={24} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Feather name="user" size={24} color="black" />
-        </TouchableOpacity> */
-}
-
 export default function Home() {
   return (
     <MainTab.Navigator>

@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AntDesign } from '@expo/vector-icons';
 
 import DimensionsProvider from './components/DimensionsProvider';
+import UserProvider from './components/UserProvider';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
 import Home from './Screens/Home';
@@ -38,107 +39,109 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <DimensionsProvider>
-        <NavigationContainer>
-          <MainStack.Navigator>
-            {!isAuth ? (
-              <>
-                <MainStack.Screen
-                  name="Login"
-                  component={LoginScreen}
-                  options={{ headerShown: false }}
-                />
-                <MainStack.Screen
-                  name="Registration"
-                  component={RegistrationScreen}
-                  options={{ headerShown: false }}
-                />
-              </>
-            ) : (
-              <>
-                <MainStack.Screen
-                  name="Home"
-                  component={Home}
-                  options={{ headerShown: false }}
-                />
-                <MainStack.Screen
-                  name="CreatePost"
-                  component={CreatePostsScreen}
-                  options={({ navigation, route }) => ({
-                    headerBackVisible: false,
-                    headerLeft: (props) => (
-                      <TouchableOpacity
-                        {...props}
-                        style={{
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                        onPress={() => {
-                          navigation.goBack();
-                        }}
-                      >
-                        <AntDesign
-                          name="arrowleft"
-                          size={24}
-                          color="rgba(33, 33, 33, 0.8)"
-                        />
-                      </TouchableOpacity>
-                    ),
-                  })}
-                />
-                <MainStack.Screen
-                  name="MapScreen"
-                  component={MapScreen}
-                  options={({ navigation, route }) => ({
-                    headerBackVisible: false,
-                    headerLeft: (props) => (
-                      <TouchableOpacity
-                        {...props}
-                        style={{
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                        onPress={() => {
-                          navigation.goBack();
-                        }}
-                      >
-                        <AntDesign
-                          name="arrowleft"
-                          size={24}
-                          color="rgba(33, 33, 33, 0.8)"
-                        />
-                      </TouchableOpacity>
-                    ),
-                  })}
-                />
-                <MainStack.Screen
-                  name="CommentsScreen"
-                  component={CommentsScreen}
-                  options={({ navigation, route }) => ({
-                    headerBackVisible: false,
-                    headerLeft: (props) => (
-                      <TouchableOpacity
-                        {...props}
-                        style={{
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                        onPress={() => {
-                          navigation.goBack();
-                        }}
-                      >
-                        <AntDesign
-                          name="arrowleft"
-                          size={24}
-                          color="rgba(33, 33, 33, 0.8)"
-                        />
-                      </TouchableOpacity>
-                    ),
-                  })}
-                />
-              </>
-            )}
-          </MainStack.Navigator>
-        </NavigationContainer>
+        <UserProvider>
+          <NavigationContainer>
+            <MainStack.Navigator>
+              {!isAuth ? (
+                <>
+                  <MainStack.Screen
+                    name="Login"
+                    component={LoginScreen}
+                    options={{ headerShown: false }}
+                  />
+                  <MainStack.Screen
+                    name="Registration"
+                    component={RegistrationScreen}
+                    options={{ headerShown: false }}
+                  />
+                </>
+              ) : (
+                <>
+                  <MainStack.Screen
+                    name="Home"
+                    component={Home}
+                    options={{ headerShown: false }}
+                  />
+                  <MainStack.Screen
+                    name="CreatePost"
+                    component={CreatePostsScreen}
+                    options={({ navigation, route }) => ({
+                      headerBackVisible: false,
+                      headerLeft: (props) => (
+                        <TouchableOpacity
+                          {...props}
+                          style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                          onPress={() => {
+                            navigation.goBack();
+                          }}
+                        >
+                          <AntDesign
+                            name="arrowleft"
+                            size={24}
+                            color="rgba(33, 33, 33, 0.8)"
+                          />
+                        </TouchableOpacity>
+                      ),
+                    })}
+                  />
+                  <MainStack.Screen
+                    name="MapScreen"
+                    component={MapScreen}
+                    options={({ navigation, route }) => ({
+                      headerBackVisible: false,
+                      headerLeft: (props) => (
+                        <TouchableOpacity
+                          {...props}
+                          style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                          onPress={() => {
+                            navigation.goBack();
+                          }}
+                        >
+                          <AntDesign
+                            name="arrowleft"
+                            size={24}
+                            color="rgba(33, 33, 33, 0.8)"
+                          />
+                        </TouchableOpacity>
+                      ),
+                    })}
+                  />
+                  <MainStack.Screen
+                    name="CommentsScreen"
+                    component={CommentsScreen}
+                    options={({ navigation, route }) => ({
+                      headerBackVisible: false,
+                      headerLeft: (props) => (
+                        <TouchableOpacity
+                          {...props}
+                          style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                          onPress={() => {
+                            navigation.goBack();
+                          }}
+                        >
+                          <AntDesign
+                            name="arrowleft"
+                            size={24}
+                            color="rgba(33, 33, 33, 0.8)"
+                          />
+                        </TouchableOpacity>
+                      ),
+                    })}
+                  />
+                </>
+              )}
+            </MainStack.Navigator>
+          </NavigationContainer>
+        </UserProvider>
       </DimensionsProvider>
     </View>
   );
