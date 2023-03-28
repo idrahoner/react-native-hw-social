@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDimensions } from '../../hooks/dimensions';
+import { useDimensions, useUser } from '../../hooks';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
@@ -9,13 +9,14 @@ import TransparentButton from '../../components/TransparentButton';
 export default function LoginScreen({ navigation }) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const { dimensions } = useDimensions();
+  const { loginUser } = useUser();
 
   return (
     <BackgroundWithImage>
       <KeyboardShutter setIsKeyboardOpen={setIsKeyboardOpen}>
         <FrameRoundedUpperEdge>
           <LoginForm
-            onSubmit={console.log}
+            onSubmit={loginUser}
             setIsKeyboardOpen={setIsKeyboardOpen}
           />
           <TransparentButton

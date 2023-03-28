@@ -7,10 +7,13 @@ import { Feather } from '@expo/vector-icons';
 import PostsScreen from '../PostsScreen';
 import ProfileScreen from '../ProfileScreen';
 import CreatePostsScreen from '../CreatePostsScreen';
+import { useUser } from '../../hooks';
 
 const MainTab = createBottomTabNavigator();
 
 export default function Home() {
+  const { logoutUser } = useUser();
+
   return (
     <MainTab.Navigator>
       <MainTab.Screen
@@ -24,9 +27,7 @@ export default function Home() {
                 justifyContent: 'center',
                 marginRight: 10,
               }}
-              onPress={() => {
-                console.log('logout!');
-              }}
+              onPress={logoutUser}
             >
               <MaterialIcons name="logout" size={24} color="#BDBDBD" />
             </TouchableOpacity>
