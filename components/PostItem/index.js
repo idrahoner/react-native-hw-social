@@ -31,12 +31,21 @@ export default function PostItem({
             style={styles.navigationButton}
             onPress={() => navigation.navigate('CommentsScreen')}
           >
-            <Ionicons
-              name="chatbubble-outline"
-              size={24}
-              color="black"
-              style={{ transform: [{ scaleX: -1 }] }}
-            />
+            {comments === 0 ? (
+              <Ionicons
+                name="chatbubble-outline"
+                size={24}
+                color="#BDBDBD"
+                style={{ transform: [{ scaleX: -1 }] }}
+              />
+            ) : (
+              <Ionicons
+                name="chatbubble-sharp"
+                size={24}
+                color="#FF6C00"
+                style={{ transform: [{ scaleX: -1 }] }}
+              />
+            )}
             <Text style={styles.navigationTitle}>{comments}</Text>
           </TouchableOpacity>
           {likes >= 0 ? (
@@ -47,7 +56,7 @@ export default function PostItem({
               <Feather
                 name="thumbs-up"
                 size={24}
-                color={isLiked ? 'orange' : 'black'}
+                color={isLiked ? '#FF6C00' : '#BDBDBD'}
               />
               <Text style={styles.navigationTitle}>
                 {isLiked ? likes + 1 : likes}
@@ -59,7 +68,7 @@ export default function PostItem({
           style={styles.navigationButton}
           onPress={() => navigation.navigate('MapScreen')}
         >
-          <AntDesign name="enviromento" size={24} color="black" />
+          <AntDesign name="enviromento" size={24} color="#BDBDBD" />
           <Text
             style={{
               ...styles.navigationTitle,

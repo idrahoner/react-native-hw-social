@@ -12,10 +12,12 @@ export default function UserInfo() {
       </View>
       <View>
         <View>
-          <Text>{userAuthData.login || 'Anonymous'}</Text>
+          <Text style={styles.login}>{userAuthData.login || 'Anonymous'}</Text>
         </View>
         <View>
-          <Text>{userAuthData.email || 'Anonymous@anon.com'}</Text>
+          <Text style={styles.email}>
+            {userAuthData.email || 'Anonymous@anon.com'}
+          </Text>
         </View>
       </View>
     </View>
@@ -36,5 +38,11 @@ const styles = StyleSheet.create({
     marginRight: 8,
     backgroundColor: '#F6F6F6',
     borderRadius: 16,
+  },
+  login: { fontFamily: 'Roboto-bold', fontSize: 13, color: '#212121' },
+  email: {
+    fontFamily: 'Roboto-regular',
+    fontSize: 11,
+    color: 'rgba(33, 33, 33, 0.8)',
   },
 });

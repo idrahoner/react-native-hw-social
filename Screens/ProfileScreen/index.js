@@ -45,16 +45,19 @@ export default function ProfileScreen({ navigation }) {
             </Text>
           </View>
           <View style={{ marginTop: 33 }}>
-            {POST_LIST.map(({ imageURI, comments, likes, location }, index) => (
-              <PostItem
-                key={index}
-                navigation={navigation}
-                imageURI={`${imageURI}?sig=${index}`}
-                comments={comments}
-                likes={likes}
-                location={location}
-              />
-            ))}
+            {POST_LIST.map(
+              ({ imageURI, title, comments, likes, location }, index) => (
+                <PostItem
+                  key={index}
+                  navigation={navigation}
+                  imageURI={`${imageURI}?sig=${index}`}
+                  title={title}
+                  comments={comments}
+                  likes={likes}
+                  location={location}
+                />
+              )
+            )}
           </View>
         </FrameRoundedUpperEdge>
       </ScrollView>
