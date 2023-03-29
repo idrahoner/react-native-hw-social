@@ -22,7 +22,7 @@ export default function PostItem({
           resizeMode="cover"
         />
       </View>
-      <View style={{ height: 19 }}>
+      <View>
         <Text style={styles.title}>{title}</Text>
       </View>
       <View style={styles.imageNavContainer}>

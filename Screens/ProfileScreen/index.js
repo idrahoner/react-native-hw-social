@@ -1,4 +1,4 @@
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { useUser, useDimensions } from '../../hooks';
 import { POST_LIST } from '../../postList';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
@@ -13,12 +13,11 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <BackgroundWithImage>
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={styles.scrollContainer}>
         <FrameRoundedUpperEdge
           style={{
             minHeight: '100%',
             marginTop: Math.round(Number(dimensions.screen.height) * 0.2),
-            paddingTop: 92,
           }}
         >
           <AvatarPicker
@@ -26,25 +25,13 @@ export default function ProfileScreen({ navigation }) {
             onAvatarChange={updateUserData}
             defaultAvatar={userAuthData.avatar}
           />
-          <LogoutButton style={{ position: 'absolute', top: 22, right: 16 }} />
-          <View
-            style={{
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: 'Roboto-medium',
-                fontSize: 30,
-                color: '#212121',
-              }}
-            >
+          <LogoutButton style={styles.logoutButton} />
+          <View style={styles.contentContainer}>
+            <Text style={styles.userLogin}>
               {userAuthData.login || 'Anonymous'}
             </Text>
           </View>
-          <View style={{ marginTop: 33 }}>
+          <View style={styles.postsContainer}>
             {POST_LIST.map(
               ({ imageURI, title, comments, likes, location }, index) => (
                 <PostItem
@@ -64,3 +51,20 @@ export default function ProfileScreen({ navigation }) {
     </BackgroundWithImage>
   );
 }
+
+const styles = StyleSheet.create({
+  scrollContainer: { flex: 1 },
+  contentContainer: {
+    marginTop: 92,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoutButton: { position: 'absolute', top: 22, right: 16 },
+  userLogin: {
+    fontFamily: 'Roboto-medium',
+    fontSize: 30,
+    color: '#212121',
+  },
+  postsContainer: { marginTop: 33 },
+});
