@@ -1,15 +1,13 @@
 import { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import LoginScreen from './Screens/LoginScreen';
-import RegistrationScreen from './Screens/RegistrationScreen';
+import DimensionsProvider from './components/DimensionsProvider';
+import UserProvider from './components/UserProvider';
+import Router from './components/Router';
 
 SplashScreen.preventAutoHideAsync();
-const AuthStack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,20 +28,11 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <AuthStack.Navigator>
-          <AuthStack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <AuthStack.Screen
-            name="Registration"
-            component={RegistrationScreen}
-            options={{ headerShown: false }}
-          />
-        </AuthStack.Navigator>
-      </NavigationContainer>
+      <DimensionsProvider>
+        <UserProvider>
+          <Router />
+        </UserProvider>
+      </DimensionsProvider>
     </View>
   );
 }

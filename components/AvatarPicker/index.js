@@ -4,8 +4,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { AntDesign } from '@expo/vector-icons';
 import AvatarImage from '../AvatarImage';
 
-export default function AvatarPicker({ name, onAvatarChange }) {
-  const [avatar, setAvatar] = useState(null);
+export default function AvatarPicker({ name, onAvatarChange, defaultAvatar }) {
+  const [avatar, setAvatar] = useState(defaultAvatar);
 
   const pickAvatar = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
