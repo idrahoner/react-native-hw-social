@@ -41,7 +41,8 @@ export default function Router() {
             <MainStack.Screen
               name="CreatePost"
               component={CreatePostsScreen}
-              options={({ navigation, route }) => ({
+              options={({ navigation }) => ({
+                headerTitle: 'Create post',
                 headerBackVisible: false,
                 headerLeft: (props) => (
                   <GoBackButton navigation={navigation} {...props} />
@@ -51,7 +52,8 @@ export default function Router() {
             <MainStack.Screen
               name="MapScreen"
               component={MapScreen}
-              options={({ navigation, route }) => ({
+              options={({ navigation }) => ({
+                headerTitle: 'Map',
                 headerBackVisible: false,
                 headerLeft: (props) => (
                   <GoBackButton navigation={navigation} {...props} />
@@ -61,7 +63,8 @@ export default function Router() {
             <MainStack.Screen
               name="CommentsScreen"
               component={CommentsScreen}
-              options={({ navigation, route }) => ({
+              options={({ navigation }) => ({
+                headerTitle: 'Comments',
                 headerBackVisible: false,
                 headerLeft: (props) => (
                   <GoBackButton navigation={navigation} {...props} />
