@@ -7,23 +7,23 @@ import { AntDesign } from '@expo/vector-icons';
 export default function PostItem({
   navigation,
   imageURI,
+  title,
   comments,
   likes,
   location,
-  isLiked,
-  onPressLike,
 }) {
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <View style={styles.postContainer}>
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: 'https://source.unsplash.com/random/350x240' }}
+          source={{ uri: imageURI }}
           style={styles.image}
           resizeMode="cover"
         />
       </View>
       <View style={{ height: 19 }}>
-        <Text style={styles.title}>Title</Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
       <View style={styles.imageNavContainer}>
         <View style={styles.imageStatContainer}>
@@ -37,19 +37,23 @@ export default function PostItem({
               color="black"
               style={{ transform: [{ scaleX: -1 }] }}
             />
-            <Text style={styles.navigationTitle}>333</Text>
+            <Text style={styles.navigationTitle}>{comments}</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.navigationButton}
-            onPress={() => onPressLike(!isLiked)}
-          >
-            <Feather
-              name="thumbs-up"
-              size={24}
-              color={isLiked ? 'orange' : 'black'}
-            />
-            <Text style={styles.navigationTitle}>333</Text>
-          </TouchableOpacity>
+          {likes >= 0 ? (
+            <TouchableOpacity
+              style={styles.navigationButton}
+              onPress={() => setIsLiked(!isLiked)}
+            >
+              <Feather
+                name="thumbs-up"
+                size={24}
+                color={isLiked ? 'orange' : 'black'}
+              />
+              <Text style={styles.navigationTitle}>
+                {isLiked ? likes + 1 : likes}
+              </Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
         <TouchableOpacity
           style={styles.navigationButton}
@@ -62,7 +66,7 @@ export default function PostItem({
               textDecorationLine: 'underline',
             }}
           >
-            Location
+            {location}
           </Text>
         </TouchableOpacity>
       </View>

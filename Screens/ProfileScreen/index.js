@@ -1,13 +1,6 @@
-import { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { useUser, useDimensions } from '../../hooks';
+import { POST_LIST } from '../../postList';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import AvatarPicker from '../../components/AvatarPicker';
@@ -15,7 +8,6 @@ import LogoutButton from '../../components/LogoutButton';
 import PostItem from '../../components/PostItem';
 
 export default function ProfileScreen({ navigation }) {
-  const [isLiked, setIsLiked] = useState(false);
   const { updateUserData, userAuthData } = useUser();
   const { dimensions } = useDimensions();
 
@@ -53,31 +45,16 @@ export default function ProfileScreen({ navigation }) {
             </Text>
           </View>
           <View style={{ marginTop: 33 }}>
-            <PostItem
-              navigation={navigation}
-              isLiked={isLiked}
-              onPressLike={setIsLiked}
-            />
-            <PostItem
-              navigation={navigation}
-              isLiked={isLiked}
-              onPressLike={setIsLiked}
-            />
-            <PostItem
-              navigation={navigation}
-              isLiked={isLiked}
-              onPressLike={setIsLiked}
-            />
-            <PostItem
-              navigation={navigation}
-              isLiked={isLiked}
-              onPressLike={setIsLiked}
-            />
-            <PostItem
-              navigation={navigation}
-              isLiked={isLiked}
-              onPressLike={setIsLiked}
-            />
+            {POST_LIST.map(({ imageURI, comments, likes, location }, index) => (
+              <PostItem
+                key={index}
+                navigation={navigation}
+                imageURI={`${imageURI}?sig=${index}`}
+                comments={comments}
+                likes={likes}
+                location={location}
+              />
+            ))}
           </View>
         </FrameRoundedUpperEdge>
       </ScrollView>
