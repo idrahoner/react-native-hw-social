@@ -37,17 +37,25 @@ export default function CreatePostsScreen() {
         </View>
         <View style={styles.imageDataForm}>
           <View style={styles.inputContainer}>
-            <TextInput placeholder="Title" />
+            <TextInput
+              style={{ ...styles.inputField, fontFamily: 'Roboto-medium' }}
+              placeholder="Title"
+              placeholderTextColor="#E8E8E8"
+            />
           </View>
           <View style={styles.inputContainer}>
-            <AntDesign name="enviromento" size={24} color="black" />
-            <TextInput placeholder="Location" />
+            <AntDesign name="enviromento" size={24} color="#E8E8E8" />
+            <TextInput
+              style={{ ...styles.inputField, fontFamily: 'Roboto-regular' }}
+              placeholder="Location"
+              placeholderTextColor="#E8E8E8"
+            />
           </View>
         </View>
         <PrimaryButton title="publish" disabled />
       </View>
-      <TouchableOpacity>
-        <Feather name="trash-2" size={24} color="black" />
+      <TouchableOpacity style={styles.resetButton}>
+        <Feather name="trash-2" size={24} color="#BDBDBD" />
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
@@ -84,7 +92,19 @@ const styles = StyleSheet.create({
   imageDataForm: { gap: 16 },
   inputContainer: {
     flexDirection: 'row',
-    borderBottomWidth: 2,
-    borderBottomColor: 'grey',
+    alignItems: 'center',
+    gap: 4,
+    height: 50,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E8E8E8',
+  },
+  inputField: { width: '100%', height: '100%', fontSize: 16, color: '#212121' },
+  resetButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 70,
+    height: 40,
+    backgroundColor: '#F6F6F6',
+    borderRadius: 20,
   },
 });
