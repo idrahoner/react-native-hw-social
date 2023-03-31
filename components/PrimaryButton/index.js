@@ -8,8 +8,13 @@ export default function PrimaryButton({ title, style, onPress, disabled }) {
         backgroundColor: disabled ? '#F6F6F6' : '#FF6C00',
         ...style,
       }}
-      onPress={onPress}
-      activeOpacity={0.6}
+      onPress={() => {
+        if (disabled) {
+          return;
+        }
+        onPress();
+      }}
+      activeOpacity={disabled ? 1 : 0.6}
     >
       <Text
         style={{ ...styles.title, color: disabled ? '#BDBDBD' : '#FFFFFF' }}

@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import DimensionsProvider from './components/DimensionsProvider';
 import UserProvider from './components/UserProvider';
 import Router from './components/Router';
+import KeyboardShutter from './components/KeyboardShutter';
 
 SplashScreen.preventAutoHideAsync();
 

@@ -1,75 +1,124 @@
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   TextInput,
+  Keyboard,
+  Image,
 } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import { MaterialIcons, Feather, AntDesign } from '@expo/vector-icons';
 import PrimaryButton from '../../components/PrimaryButton';
 
-export default function CreatePostsScreen() {
+export default function CreatePostsScreen({ navigation }) {
+  const [cameraRef, setCameraRef] = useState(null);
+  const [imageURI, setImageURI] = useState(null);
   const [permision, requestPermision] = Camera.useCameraPermissions();
+
+  const takePhoto = async () => {
+    const image = await cameraRef.takePictureAsync();
+    setImageURI(image.uri);
+  };
+
   if (!permision) {
     return null;
   }
+
   if (!permision.granted) {
     return (
-      <TouchableOpacity onPress={requestPermision}>
-        <Text>Set permision</Text>
-      </TouchableOpacity>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#FFFFFF',
+        }}
+      >
+        <TouchableOpacity onPress={requestPermision}>
+          <Text>Set permision</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <View style={styles.cameraContainer}>
-          <Camera style={styles.camera} type={CameraType.back}>
-            <TouchableOpacity style={styles.snapButton}>
-              <MaterialIcons name="camera-alt" size={24} color="black" />
+    <TouchableWithoutFeedback
+      style={{ flex: 1 }}
+      onPress={() => Keyboard.dismiss()}
+    >
+      <View style={styles.container}>
+        <View style={styles.contentContainer}>
+          <View style={styles.cameraContainer}>
+            <Camera
+              style={styles.camera}
+              type={CameraType.back}
+              ref={setCameraRef}
+            >
+              <TouchableOpacity style={styles.snapButton} onPress={takePhoto}>
+                <MaterialIcons name="camera-alt" size={24} color="#BDBDBD" />
+              </TouchableOpacity>
+              {imageURI && (
+                <Image
+                  source={{ uri: imageURI }}
+                  style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
+              )}
+            </Camera>
+            <TouchableOpacity style={styles.loadButton}>
+              <Text style={styles.loadTitle}>Load photo</Text>
             </TouchableOpacity>
-          </Camera>
-          <TouchableOpacity style={styles.loadButton}>
-            <Text style={styles.loadTitle}>Load photo</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.imageDataForm}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={{ ...styles.inputField, fontFamily: 'Roboto-medium' }}
-              placeholder="Title"
-              placeholderTextColor="#E8E8E8"
-            />
           </View>
-          <View style={styles.inputContainer}>
-            <AntDesign name="enviromento" size={24} color="#E8E8E8" />
-            <TextInput
-              style={{ ...styles.inputField, fontFamily: 'Roboto-regular' }}
-              placeholder="Location"
-              placeholderTextColor="#E8E8E8"
-            />
+          <View style={styles.imageDataForm}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={{ ...styles.inputField, fontFamily: 'Roboto-medium' }}
+                placeholder="Title"
+                placeholderTextColor="#E8E8E8"
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <AntDesign name="enviromento" size={24} color="#E8E8E8" />
+              <TextInput
+                style={{ ...styles.inputField, fontFamily: 'Roboto-regular' }}
+                placeholder="Location"
+                placeholderTextColor="#E8E8E8"
+              />
+            </View>
           </View>
+          <PrimaryButton
+            title="publish"
+            disabled={!imageURI}
+            onPress={() => navigation.navigate('Home')}
+          />
         </View>
-        <PrimaryButton title="publish" disabled />
+        <TouchableOpacity style={styles.resetButton}>
+          <Feather name="trash-2" size={24} color="#BDBDBD" />
+        </TouchableOpacity>
+        <StatusBar style="auto" />
       </View>
-      <TouchableOpacity style={styles.resetButton}>
-        <Feather name="trash-2" size={24} color="#BDBDBD" />
-      </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
+  keyboardShutter: {
+    height: '100%',
+  },
   container: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 32,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
   },
   contentContainer: { width: '100%', gap: 32 },
   camera: {
@@ -87,7 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: 'white',
   },
-  loadButton: { marginTop: 8 },
+  loadButton: { marginTop: 8, marginRight: 'auto' },
   loadTitle: { fontFamily: 'Roboto-regular', fontSize: 16, color: '#BDBDBD' },
   imageDataForm: { gap: 16 },
   inputContainer: {
@@ -108,3 +157,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 });
+
+// , {
+//                 imageURI,
+//                 title: 'Title',
+//                 comments: 0,
+//                 likes: 0,
+//                 location: 'Ohio',
+//               }

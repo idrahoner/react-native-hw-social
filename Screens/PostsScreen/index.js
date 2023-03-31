@@ -3,7 +3,7 @@ import UserInfo from '../../components/UserInfo';
 import PostItem from '../../components/PostItem';
 import { POST_LIST } from '../../postList';
 
-export default function PostsScreen({ navigation }) {
+export default function PostsScreen({ navigation, route }) {
   return (
     <ScrollView style={styles.container}>
       <UserInfo />
