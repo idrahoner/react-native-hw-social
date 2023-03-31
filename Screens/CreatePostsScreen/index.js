@@ -13,11 +13,13 @@ import {
 import { Camera, CameraType } from 'expo-camera';
 import { MaterialIcons, Feather, AntDesign } from '@expo/vector-icons';
 import PrimaryButton from '../../components/PrimaryButton';
+import { useImages } from '../../hooks';
 
 export default function CreatePostsScreen({ navigation }) {
   const [cameraRef, setCameraRef] = useState(null);
   const [imageURI, setImageURI] = useState(null);
   const [permision, requestPermision] = Camera.useCameraPermissions();
+  const { addImage } = useImages();
 
   const takePhoto = async () => {
     const image = await cameraRef.takePictureAsync();
@@ -96,7 +98,18 @@ export default function CreatePostsScreen({ navigation }) {
           <PrimaryButton
             title="publish"
             disabled={!imageURI}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => {
+              navigation.navigate('Home');
+              addImage({
+                id: Date.now(),
+                imageURI,
+                title: 'Title',
+                comments: 0,
+                likes: 0,
+                location: 'Ohio',
+              });
+              setImageURI(null);
+            }}
           />
         </View>
         <TouchableOpacity style={styles.resetButton}>
@@ -157,11 +170,3 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 });
-
-// , {
-//                 imageURI,
-//                 title: 'Title',
-//                 comments: 0,
-//                 likes: 0,
-//                 location: 'Ohio',
-//               }

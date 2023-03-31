@@ -5,8 +5,8 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import DimensionsProvider from './components/DimensionsProvider';
 import UserProvider from './components/UserProvider';
+import ImagesProvider from './components/ImagesProvider';
 import Router from './components/Router';
-import KeyboardShutter from './components/KeyboardShutter';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,7 +31,9 @@ export default function App() {
     <View style={styles.container} onLayout={onLayoutRootView}>
       <DimensionsProvider>
         <UserProvider>
-          <Router />
+          <ImagesProvider>
+            <Router />
+          </ImagesProvider>
         </UserProvider>
       </DimensionsProvider>
     </View>

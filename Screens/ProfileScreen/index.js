@@ -6,10 +6,12 @@ import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import AvatarPicker from '../../components/AvatarPicker';
 import LogoutButton from '../../components/LogoutButton';
 import PostItem from '../../components/PostItem';
+import { useImages } from '../../hooks';
 
 export default function ProfileScreen({ navigation }) {
   const { updateUserData, userAuthData } = useUser();
   const { dimensions } = useDimensions();
+  const { getImages } = useImages();
 
   return (
     <BackgroundWithImage>
@@ -32,6 +34,18 @@ export default function ProfileScreen({ navigation }) {
             </Text>
           </View>
           <View style={styles.postsContainer}>
+            {getImages().map(
+              ({ id, imageURI, title, comments, likes, location }) => (
+                <PostItem
+                  key={id}
+                  imageURI={imageURI}
+                  title={title}
+                  comments={comments}
+                  likes={likes}
+                  location={location}
+                />
+              )
+            )}
             {POST_LIST.map(
               ({ imageURI, title, comments, likes, location }, index) => (
                 <PostItem
