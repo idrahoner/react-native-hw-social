@@ -30,6 +30,12 @@
         {
           "cameraPermission": "Allow Social to access your camera."
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Social to use your location."
+        }
       ]
     ]
   }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
@@ -11,6 +11,7 @@ import {
   Image,
 } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
+import * as Location from 'expo-location';
 import { MaterialIcons, Feather, AntDesign } from '@expo/vector-icons';
 import PrimaryButton from '../../components/PrimaryButton';
 import { useImages } from '../../hooks';
@@ -18,12 +19,24 @@ import { useImages } from '../../hooks';
 export default function CreatePostsScreen({ navigation }) {
   const [cameraRef, setCameraRef] = useState(null);
   const [imageURI, setImageURI] = useState(null);
+  const [location, setLocation] = useState(null);
   const [permision, requestPermision] = Camera.useCameraPermissions();
   const { addImage } = useImages();
 
+  useEffect(() => {
+    (async () => {
+      await Location.requestForegroundPermissionsAsync();
+    })();
+  }, []);
+
   const takePhoto = async () => {
     const image = await cameraRef.takePictureAsync();
+    const currentPosition = await Location.getCurrentPositionAsync();
     setImageURI(image.uri);
+    setLocation({
+      latitude: currentPosition.coords.latitude,
+      longitude: currentPosition.coords.longitude,
+    });
   };
 
   if (!permision) {
@@ -31,20 +44,12 @@ export default function CreatePostsScreen({ navigation }) {
   }
 
   if (!permision.granted) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#FFFFFF',
-        }}
-      >
-        <TouchableOpacity onPress={requestPermision}>
-          <Text>Set permision</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    requestPermision();
+    return <View style={{ flex: 1, backgroundColor: '#FFFFFF' }} />;
+  }
+
+  if (location) {
+    console.log(location);
   }
 
   return (
