@@ -19,7 +19,7 @@ import { useImages } from '../../hooks';
 export default function CreatePostsScreen({ navigation }) {
   const [cameraRef, setCameraRef] = useState(null);
   const [imageURI, setImageURI] = useState(null);
-  const [location, setLocation] = useState(null);
+  const [position, setPosition] = useState(null);
   const [permision, requestPermision] = Camera.useCameraPermissions();
   const { addImage } = useImages();
 
@@ -33,7 +33,7 @@ export default function CreatePostsScreen({ navigation }) {
     const image = await cameraRef.takePictureAsync();
     const currentPosition = await Location.getCurrentPositionAsync();
     setImageURI(image.uri);
-    setLocation({
+    setPosition({
       latitude: currentPosition.coords.latitude,
       longitude: currentPosition.coords.longitude,
     });
@@ -48,8 +48,8 @@ export default function CreatePostsScreen({ navigation }) {
     return <View style={{ flex: 1, backgroundColor: '#FFFFFF' }} />;
   }
 
-  if (location) {
-    console.log(location);
+  if (position) {
+    console.log(position);
   }
 
   return (
@@ -111,7 +111,7 @@ export default function CreatePostsScreen({ navigation }) {
                 title: 'Title',
                 comments: 0,
                 likes: 0,
-                location: 'Ohio',
+                location: { title: 'Ohio', position },
               });
               setImageURI(null);
             }}
