@@ -4,13 +4,13 @@ import PostItem from '../../components/PostItem';
 import { useImages } from '../../hooks';
 
 export default function PostsScreen({ navigation }) {
-  const { getImages } = useImages();
+  const { imageList } = useImages();
 
   return (
     <ScrollView style={styles.container}>
       <UserInfo />
       <View>
-        {getImages().map(({ id, imageURI, title, comments, location }) => (
+        {imageList.map(({ id, imageURI, title, comments, location }) => (
           <PostItem
             key={id}
             navigation={navigation}

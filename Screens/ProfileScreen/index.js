@@ -10,7 +10,7 @@ import { useImages } from '../../hooks';
 export default function ProfileScreen({ navigation }) {
   const { updateUserData, userAuthData } = useUser();
   const { dimensions } = useDimensions();
-  const { getImages } = useImages();
+  const { imageList } = useImages();
 
   return (
     <BackgroundWithImage>
@@ -33,10 +33,11 @@ export default function ProfileScreen({ navigation }) {
             </Text>
           </View>
           <View style={styles.postsContainer}>
-            {getImages().map(
+            {imageList.map(
               ({ id, imageURI, title, comments, likes, location }) => (
                 <PostItem
                   key={id}
+                  navigation={navigation}
                   imageURI={imageURI}
                   title={title}
                   comments={comments}

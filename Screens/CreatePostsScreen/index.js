@@ -15,14 +15,13 @@ import * as Location from 'expo-location';
 import { MaterialIcons, Feather, AntDesign } from '@expo/vector-icons';
 import PrimaryButton from '../../components/PrimaryButton';
 import { useImages } from '../../hooks';
+import CameraView from '../../components/CameraView';
 
 export default function CreatePostsScreen({ navigation }) {
-  const [cameraRef, setCameraRef] = useState(null);
   const [imageURI, setImageURI] = useState(null);
   const [position, setPosition] = useState(null);
   const [imageTitle, setImageTitle] = useState('');
   const [positionLabel, setPositionLabel] = useState('');
-  const [permision, requestPermision] = Camera.useCameraPermissions();
   const { addImage } = useImages();
 
   useEffect(() => {
@@ -30,29 +29,6 @@ export default function CreatePostsScreen({ navigation }) {
       await Location.requestForegroundPermissionsAsync();
     })();
   }, []);
-
-  const takePhoto = async () => {
-    const image = await cameraRef.takePictureAsync();
-    const currentPosition = await Location.getCurrentPositionAsync();
-    setImageURI(image.uri);
-    setPosition({
-      latitude: currentPosition.coords.latitude,
-      longitude: currentPosition.coords.longitude,
-    });
-  };
-
-  if (!permision) {
-    return null;
-  }
-
-  if (!permision.granted) {
-    requestPermision();
-    return <View style={{ flex: 1, backgroundColor: '#FFFFFF' }} />;
-  }
-
-  if (position) {
-    console.log(position);
-  }
 
   return (
     <TouchableWithoutFeedback
@@ -62,25 +38,11 @@ export default function CreatePostsScreen({ navigation }) {
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <View style={styles.cameraContainer}>
-            <Camera
-              style={styles.camera}
-              type={CameraType.back}
-              ref={setCameraRef}
-            >
-              <TouchableOpacity style={styles.snapButton} onPress={takePhoto}>
-                <MaterialIcons name="camera-alt" size={24} color="#BDBDBD" />
-              </TouchableOpacity>
-              {imageURI && (
-                <Image
-                  source={{ uri: imageURI }}
-                  style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                  }}
-                />
-              )}
-            </Camera>
+            <CameraView
+              imageURI={imageURI}
+              setImageURI={setImageURI}
+              setPosition={setPosition}
+            />
             <TouchableOpacity style={styles.loadButton}>
               <Text style={styles.loadTitle}>Load photo</Text>
             </TouchableOpacity>
@@ -107,7 +69,7 @@ export default function CreatePostsScreen({ navigation }) {
             </View>
           </View>
           <PrimaryButton
-            title="publish"
+            title="Publish"
             disabled={!imageURI}
             onPress={() => {
               navigation.navigate('Home');

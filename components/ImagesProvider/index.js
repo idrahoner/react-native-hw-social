@@ -5,14 +5,10 @@ export default function ImagesProvider({ children }) {
   const [imageList, setImageList] = useState([]);
 
   const addImage = (imageObject) =>
-    setImageList((prevState) => [...prevState, imageObject]);
-
-  const getImages = () => {
-    return [...imageList].reverse();
-  };
+    setImageList((prevState) => [imageObject, ...prevState]);
 
   return (
-    <ImagesContext.Provider value={{ addImage, getImages }}>
+    <ImagesContext.Provider value={{ addImage, imageList }}>
       {children}
     </ImagesContext.Provider>
   );
