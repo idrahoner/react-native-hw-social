@@ -20,6 +20,8 @@ export default function CreatePostsScreen({ navigation }) {
   const [cameraRef, setCameraRef] = useState(null);
   const [imageURI, setImageURI] = useState(null);
   const [position, setPosition] = useState(null);
+  const [imageTitle, setImageTitle] = useState('');
+  const [positionLabel, setPositionLabel] = useState('');
   const [permision, requestPermision] = Camera.useCameraPermissions();
   const { addImage } = useImages();
 
@@ -89,6 +91,8 @@ export default function CreatePostsScreen({ navigation }) {
                 style={{ ...styles.inputField, fontFamily: 'Roboto-medium' }}
                 placeholder="Title"
                 placeholderTextColor="#E8E8E8"
+                value={imageTitle}
+                onChangeText={(value) => setImageTitle(value)}
               />
             </View>
             <View style={styles.inputContainer}>
@@ -97,6 +101,8 @@ export default function CreatePostsScreen({ navigation }) {
                 style={{ ...styles.inputField, fontFamily: 'Roboto-regular' }}
                 placeholder="Location"
                 placeholderTextColor="#E8E8E8"
+                value={positionLabel}
+                onChangeText={(value) => setPositionLabel(value)}
               />
             </View>
           </View>
@@ -108,16 +114,23 @@ export default function CreatePostsScreen({ navigation }) {
               addImage({
                 id: Date.now(),
                 imageURI,
-                title: 'Title',
+                title: imageTitle,
                 comments: 0,
                 likes: 0,
-                location: { title: 'Ohio', position },
+                location: { label: positionLabel, position },
               });
               setImageURI(null);
             }}
           />
         </View>
-        <TouchableOpacity style={styles.resetButton}>
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={() => {
+            setImageURI(null);
+            setImageTitle('');
+            setPositionLabel('');
+          }}
+        >
           <Feather name="trash-2" size={24} color="#BDBDBD" />
         </TouchableOpacity>
         <StatusBar style="auto" />

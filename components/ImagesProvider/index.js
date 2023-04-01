@@ -7,7 +7,9 @@ export default function ImagesProvider({ children }) {
   const addImage = (imageObject) =>
     setImageList((prevState) => [...prevState, imageObject]);
 
-  const getImages = () => imageList.reverse();
+  const getImages = () => {
+    return [...imageList].reverse();
+  };
 
   return (
     <ImagesContext.Provider value={{ addImage, getImages }}>

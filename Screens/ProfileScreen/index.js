@@ -1,6 +1,5 @@
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { useUser, useDimensions } from '../../hooks';
-import { POST_LIST } from '../../postList';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import AvatarPicker from '../../components/AvatarPicker';
@@ -39,19 +38,6 @@ export default function ProfileScreen({ navigation }) {
                 <PostItem
                   key={id}
                   imageURI={imageURI}
-                  title={title}
-                  comments={comments}
-                  likes={likes}
-                  location={location}
-                />
-              )
-            )}
-            {POST_LIST.map(
-              ({ imageURI, title, comments, likes, location }, index) => (
-                <PostItem
-                  key={index}
-                  navigation={navigation}
-                  imageURI={`${imageURI}?sig=${index}`}
                   title={title}
                   comments={comments}
                   likes={likes}

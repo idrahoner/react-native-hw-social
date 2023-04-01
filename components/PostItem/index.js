@@ -77,7 +77,7 @@ export default function PostItem({
               textDecorationLine: 'underline',
             }}
           >
-            {location.title}
+            {location.label}
           </Text>
         </TouchableOpacity>
       </View>
