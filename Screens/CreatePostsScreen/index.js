@@ -16,6 +16,7 @@ import { MaterialIcons, Feather, AntDesign } from '@expo/vector-icons';
 import PrimaryButton from '../../components/PrimaryButton';
 import { useImages } from '../../hooks';
 import CameraView from '../../components/CameraView';
+import PostImagePicker from '../../components/PostImagePicker';
 
 export default function CreatePostsScreen({ navigation }) {
   const [imageURI, setImageURI] = useState(null);
@@ -43,9 +44,7 @@ export default function CreatePostsScreen({ navigation }) {
               setImageURI={setImageURI}
               setPosition={setPosition}
             />
-            <TouchableOpacity style={styles.loadButton}>
-              <Text style={styles.loadTitle}>Load photo</Text>
-            </TouchableOpacity>
+            <PostImagePicker imageURI={imageURI} setImageURI={setImageURI} />
           </View>
           <View style={styles.imageDataForm}>
             <View style={styles.inputContainer}>
