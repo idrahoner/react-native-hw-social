@@ -1,15 +1,16 @@
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { useUser, useDimensions } from '../../hooks';
-import { POST_LIST } from '../../postList';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import AvatarPicker from '../../components/AvatarPicker';
 import LogoutButton from '../../components/LogoutButton';
 import PostItem from '../../components/PostItem';
+import { useImages } from '../../hooks';
 
 export default function ProfileScreen({ navigation }) {
   const { updateUserData, userAuthData } = useUser();
   const { dimensions } = useDimensions();
+  const { imageList } = useImages();
 
   return (
     <BackgroundWithImage>
@@ -32,12 +33,12 @@ export default function ProfileScreen({ navigation }) {
             </Text>
           </View>
           <View style={styles.postsContainer}>
-            {POST_LIST.map(
-              ({ imageURI, title, comments, likes, location }, index) => (
+            {imageList.map(
+              ({ id, imageURI, title, comments, likes, location }) => (
                 <PostItem
-                  key={index}
+                  key={id}
                   navigation={navigation}
-                  imageURI={`${imageURI}?sig=${index}`}
+                  imageURI={imageURI}
                   title={title}
                   comments={comments}
                   likes={likes}

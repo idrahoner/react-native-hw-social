@@ -66,7 +66,9 @@ export default function PostItem({
         </View>
         <TouchableOpacity
           style={styles.navigationButton}
-          onPress={() => navigation.navigate('MapScreen')}
+          onPress={() =>
+            navigation.navigate('MapScreen', { position: location.position })
+          }
         >
           <AntDesign name="enviromento" size={24} color="#BDBDBD" />
           <Text
@@ -75,7 +77,7 @@ export default function PostItem({
               textDecorationLine: 'underline',
             }}
           >
-            {location}
+            {location.label}
           </Text>
         </TouchableOpacity>
       </View>

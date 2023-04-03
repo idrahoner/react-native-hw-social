@@ -1,18 +1,20 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
 import UserInfo from '../../components/UserInfo';
 import PostItem from '../../components/PostItem';
-import { POST_LIST } from '../../postList';
+import { useImages } from '../../hooks';
 
 export default function PostsScreen({ navigation }) {
+  const { imageList } = useImages();
+
   return (
     <ScrollView style={styles.container}>
       <UserInfo />
       <View>
-        {POST_LIST.map(({ imageURI, title, comments, location }, index) => (
+        {imageList.map(({ id, imageURI, title, comments, location }) => (
           <PostItem
-            key={index}
+            key={id}
             navigation={navigation}
-            imageURI={`${imageURI}?sig=${index}`}
+            imageURI={imageURI}
             title={title}
             comments={comments}
             location={location}
