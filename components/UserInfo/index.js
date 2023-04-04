@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../redux';
-import { useUser } from '../../hooks';
 import AvatarImage from '../AvatarImage';
 
 export default function UserInfo() {

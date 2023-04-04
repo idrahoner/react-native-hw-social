@@ -1,16 +1,17 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
+import { getPosts } from '../../redux';
 import UserInfo from '../../components/UserInfo';
 import PostItem from '../../components/PostItem';
-import { useImages } from '../../hooks';
 
 export default function PostsScreen({ navigation }) {
-  const { imageList } = useImages();
+  const posts = useSelector(getPosts);
 
   return (
     <ScrollView style={styles.container}>
       <UserInfo />
       <View>
-        {imageList.map(({ id, imageURI, title, comments, location }) => (
+        {posts.map(({ id, imageURI, title, comments, location }) => (
           <PostItem
             key={id}
             navigation={navigation}

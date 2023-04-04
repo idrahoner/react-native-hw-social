@@ -1,18 +1,17 @@
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDimensions, getUser, updateUserData } from '../../redux';
+import { getDimensions, getUser, getPosts, updateUserData } from '../../redux';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import AvatarPicker from '../../components/AvatarPicker';
 import LogoutButton from '../../components/LogoutButton';
 import PostItem from '../../components/PostItem';
-import { useImages } from '../../hooks';
 
 export default function ProfileScreen({ navigation }) {
+  const posts = useSelector(getPosts);
   const user = useSelector(getUser);
   const dimensions = useSelector(getDimensions);
   const dispatch = useDispatch();
-  const { imageList } = useImages();
 
   return (
     <BackgroundWithImage>
@@ -35,19 +34,17 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styles.userLogin}>{user.login || 'Anonymous'}</Text>
           </View>
           <View style={styles.postsContainer}>
-            {imageList.map(
-              ({ id, imageURI, title, comments, likes, location }) => (
-                <PostItem
-                  key={id}
-                  navigation={navigation}
-                  imageURI={imageURI}
-                  title={title}
-                  comments={comments}
-                  likes={likes}
-                  location={location}
-                />
-              )
-            )}
+            {posts.map(({ id, imageURI, title, comments, likes, location }) => (
+              <PostItem
+                key={id}
+                navigation={navigation}
+                imageURI={imageURI}
+                title={title}
+                comments={comments}
+                likes={likes}
+                location={location}
+              />
+            ))}
           </View>
         </FrameRoundedUpperEdge>
       </ScrollView>

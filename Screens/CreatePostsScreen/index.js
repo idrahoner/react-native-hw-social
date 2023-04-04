@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
+import { createPost } from '../../redux';
 import PrimaryButton from '../../components/PrimaryButton';
-import { useImages } from '../../hooks';
 import CameraView from '../../components/CameraView';
 import PostImagePicker from '../../components/PostImagePicker';
 import CreatePostForm from '../../components/CreatePostForm';
@@ -20,7 +21,7 @@ export default function CreatePostsScreen({ navigation }) {
   const [position, setPosition] = useState(null);
   const [imageTitle, setImageTitle] = useState('');
   const [positionLabel, setPositionLabel] = useState('');
-  const { addImage } = useImages();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -29,16 +30,15 @@ export default function CreatePostsScreen({ navigation }) {
   }, []);
 
   const handleFormSubmit = () => {
-    navigation.navigate('Posts');
-    addImage({
-      id: Date.now(),
-      imageURI,
-      title: imageTitle,
-      comments: 0,
-      likes: 0,
-      location: { label: positionLabel, position },
-    });
+    dispatch(
+      createPost({
+        imageURI,
+        title: imageTitle,
+        location: { label: positionLabel, position },
+      })
+    );
     setImageURI(null);
+    navigation.navigate('Posts');
   };
 
   const handleFormReset = () => {

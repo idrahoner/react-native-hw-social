@@ -4,8 +4,6 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { Provider } from 'react-redux';
 import { store } from './redux';
-
-import ImagesProvider from './components/ImagesProvider';
 import Router from './components/Router';
 
 SplashScreen.preventAutoHideAsync();
@@ -30,9 +28,7 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <Provider store={store}>
-        <ImagesProvider>
-          <Router />
-        </ImagesProvider>
+        <Router />
       </Provider>
     </View>
   );
