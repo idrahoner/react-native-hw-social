@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getDimensions } from '../../redux';
-import { useUser } from '../../hooks';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDimensions, loginUser } from '../../redux';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
@@ -11,14 +10,18 @@ import TransparentButton from '../../components/TransparentButton';
 export default function LoginScreen({ navigation }) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const dimensions = useSelector(getDimensions);
-  const { loginUser } = useUser();
+  const dispatch = useDispatch();
+
+  const handleSubmit = (userData) => {
+    dispatch(loginUser(userData));
+  };
 
   return (
     <BackgroundWithImage>
       <KeyboardShutter setIsKeyboardOpen={setIsKeyboardOpen}>
         <FrameRoundedUpperEdge>
           <LoginForm
-            onSubmit={loginUser}
+            onSubmit={handleSubmit}
             setIsKeyboardOpen={setIsKeyboardOpen}
           />
           <TransparentButton

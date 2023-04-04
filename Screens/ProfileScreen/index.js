@@ -1,7 +1,6 @@
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-import { getDimensions } from '../../redux';
-import { useUser } from '../../hooks';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDimensions, getUser, updateUserData } from '../../redux';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import AvatarPicker from '../../components/AvatarPicker';
@@ -10,8 +9,9 @@ import PostItem from '../../components/PostItem';
 import { useImages } from '../../hooks';
 
 export default function ProfileScreen({ navigation }) {
-  const { updateUserData, userAuthData } = useUser();
+  const user = useSelector(getUser);
   const dimensions = useSelector(getDimensions);
+  const dispatch = useDispatch();
   const { imageList } = useImages();
 
   return (
@@ -25,14 +25,14 @@ export default function ProfileScreen({ navigation }) {
         >
           <AvatarPicker
             name="avatar"
-            onAvatarChange={updateUserData}
-            defaultAvatar={userAuthData.avatar}
+            onAvatarChange={(userData) => {
+              dispatch(updateUserData(userData));
+            }}
+            defaultAvatar={user.avatar}
           />
           <LogoutButton style={styles.logoutButton} />
           <View style={styles.contentContainer}>
-            <Text style={styles.userLogin}>
-              {userAuthData.login || 'Anonymous'}
-            </Text>
+            <Text style={styles.userLogin}>{user.login || 'Anonymous'}</Text>
           </View>
           <View style={styles.postsContainer}>
             {imageList.map(

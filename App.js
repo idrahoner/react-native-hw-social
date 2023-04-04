@@ -5,7 +5,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Provider } from 'react-redux';
 import { store } from './redux';
 
-import UserProvider from './components/UserProvider';
 import ImagesProvider from './components/ImagesProvider';
 import Router from './components/Router';
 
@@ -31,11 +30,9 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <Provider store={store}>
-        <UserProvider>
-          <ImagesProvider>
-            <Router />
-          </ImagesProvider>
-        </UserProvider>
+        <ImagesProvider>
+          <Router />
+        </ImagesProvider>
       </Provider>
     </View>
   );

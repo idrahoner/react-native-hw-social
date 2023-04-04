@@ -2,10 +2,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Dimensions } from 'react-native';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setDimensions } from '../../redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDimensions, getUser } from '../../redux';
 
-import { useUser } from '../../hooks/user';
 import LoginScreen from '../../Screens/LoginScreen';
 import RegistrationScreen from '../../Screens/RegistrationScreen';
 import Home from '../../Screens/Home';
@@ -17,8 +16,8 @@ import GoBackButton from '../GoBackButton';
 const MainStack = createNativeStackNavigator();
 
 export default function Router() {
+  const { isAuthorized } = useSelector(getUser);
   const dispatch = useDispatch();
-  const { isAuthorized } = useUser();
 
   useEffect(() => {
     const subscription = Dimensions.addEventListener('change', ({ screen }) => {

@@ -1,23 +1,23 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../redux';
 import { useUser } from '../../hooks';
 import AvatarImage from '../AvatarImage';
 
 export default function UserInfo() {
-  const { userAuthData } = useUser();
+  const user = useSelector(getUser);
 
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        {userAuthData.avatar && <AvatarImage avatarURI={userAuthData.avatar} />}
+        {user.avatar && <AvatarImage avatarURI={user.avatar} />}
       </View>
       <View>
         <View>
-          <Text style={styles.login}>{userAuthData.login || 'Anonymous'}</Text>
+          <Text style={styles.login}>{user.login || 'Anonymous'}</Text>
         </View>
         <View>
-          <Text style={styles.email}>
-            {userAuthData.email || 'Anonymous@anon.com'}
-          </Text>
+          <Text style={styles.email}>{user.email || 'Anonymous@anon.com'}</Text>
         </View>
       </View>
     </View>
