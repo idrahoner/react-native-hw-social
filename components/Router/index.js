@@ -1,5 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Dimensions } from 'react-native';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setDimensions } from '../../redux';
 
 import { useUser } from '../../hooks/user';
 import LoginScreen from '../../Screens/LoginScreen';
@@ -13,7 +17,16 @@ import GoBackButton from '../GoBackButton';
 const MainStack = createNativeStackNavigator();
 
 export default function Router() {
+  const dispatch = useDispatch();
   const { isAuthorized } = useUser();
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener('change', ({ screen }) => {
+      console.log('screen', screen);
+      dispatch(setDimensions({ ...screen }));
+    });
+    return () => subscription?.remove();
+  }, []);
 
   return (
     <NavigationContainer>

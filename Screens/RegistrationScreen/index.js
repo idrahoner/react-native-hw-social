@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { useDimensions, useUser } from '../../hooks';
+import { useSelector } from 'react-redux';
+import { getDimensions } from '../../redux';
+import { useUser } from '../../hooks';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import KeyboardShutter from '../../components/KeyboardShutter';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
@@ -8,7 +10,7 @@ import TransparentButton from '../../components/TransparentButton';
 
 export default function RegistrationScreen({ navigation }) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
-  const { dimensions } = useDimensions();
+  const dimensions = useSelector(getDimensions);
   const { loginUser } = useUser();
 
   return (
@@ -24,7 +26,7 @@ export default function RegistrationScreen({ navigation }) {
             style={{
               marginBottom: isKeyboardOpen
                 ? -120
-                : Math.floor(dimensions.screen.height / 10),
+                : Math.floor(dimensions.height / 10),
             }}
             onPress={() => {
               setIsKeyboardOpen(false);

@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { Provider } from 'react-redux';
+import { store } from './redux';
 
-import DimensionsProvider from './components/DimensionsProvider';
 import UserProvider from './components/UserProvider';
 import ImagesProvider from './components/ImagesProvider';
 import Router from './components/Router';
@@ -29,13 +30,13 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <DimensionsProvider>
+      <Provider store={store}>
         <UserProvider>
           <ImagesProvider>
             <Router />
           </ImagesProvider>
         </UserProvider>
-      </DimensionsProvider>
+      </Provider>
     </View>
   );
 }

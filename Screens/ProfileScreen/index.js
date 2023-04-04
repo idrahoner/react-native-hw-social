@@ -1,5 +1,7 @@
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
-import { useUser, useDimensions } from '../../hooks';
+import { useSelector } from 'react-redux';
+import { getDimensions } from '../../redux';
+import { useUser } from '../../hooks';
 import BackgroundWithImage from '../../components/BackgroundWithImage';
 import FrameRoundedUpperEdge from '../../components/FrameRoundedUpperEdge';
 import AvatarPicker from '../../components/AvatarPicker';
@@ -9,7 +11,7 @@ import { useImages } from '../../hooks';
 
 export default function ProfileScreen({ navigation }) {
   const { updateUserData, userAuthData } = useUser();
-  const { dimensions } = useDimensions();
+  const dimensions = useSelector(getDimensions);
   const { imageList } = useImages();
 
   return (
@@ -18,7 +20,7 @@ export default function ProfileScreen({ navigation }) {
         <FrameRoundedUpperEdge
           style={{
             minHeight: '100%',
-            marginTop: Math.round(Number(dimensions.screen.height) * 0.2),
+            marginTop: Math.round(Number(dimensions.height) * 0.2),
           }}
         >
           <AvatarPicker
