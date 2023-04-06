@@ -3,6 +3,7 @@ import {
   updateProfile,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -45,6 +46,18 @@ export const loginUser = createAsyncThunk(
       return { email: email, id: uid, login: displayName, avatar: photoURL };
     } catch (error) {
       console.log('error.message', error.message);
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const logoutUser = createAsyncThunk(
+  'auth/logout',
+  async (_, thunkApi) => {
+    try {
+      await signOut(auth);
+      return true;
+    } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
   }
