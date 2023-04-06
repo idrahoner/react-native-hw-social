@@ -3,7 +3,7 @@ import { registerUser, loginUser } from './operations';
 
 const initialUserState = {
   id: null,
-  avatar: null,
+  avatarURI: null,
   login: null,
   email: null,
   isAuthorized: false,
@@ -34,8 +34,12 @@ const userSlice = createSlice({
         return { ...state, isLoading: true, error: null };
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        const { email, id } = action.payload;
-        return { ...state, isLoading: false, isAuthorized: true, email, id };
+        return {
+          ...state,
+          isLoading: false,
+          isAuthorized: true,
+          ...action.payload,
+        };
       })
       .addCase(registerUser.rejected, (state, action) => {
         return { ...state, isLoading: false, error: action.payload };
