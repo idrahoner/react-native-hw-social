@@ -3,7 +3,7 @@ import { registerUser, loginUser } from './operations';
 
 const initialUserState = {
   id: null,
-  avatarURI: null,
+  avatar: null,
   login: null,
   email: null,
   isAuthorized: false,
@@ -15,12 +15,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState: initialUserState,
   reducers: {
-    // loginUser(state, action) {
-    //   return { ...state, ...action.payload, isAuthorized: true };
-    // },
-    // registerUser(state, action) {
-    //   return { ...state, ...action.payload, isAuthorized: true };
-    // },
     logoutUser() {
       return { ...initialUserState };
     },
@@ -48,8 +42,12 @@ const userSlice = createSlice({
         return { ...state, isLoading: true, error: null };
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        const { email, id } = action.payload;
-        return { ...state, isLoading: false, isAuthorized: true, email, id };
+        return {
+          ...state,
+          isLoading: false,
+          isAuthorized: true,
+          ...action.payload,
+        };
       })
       .addCase(loginUser.rejected, (state, action) => {
         return { ...state, isLoading: false, error: action.payload };
@@ -57,10 +55,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {
-  // loginUser,
-  // registerUser,
-  logoutUser,
-  updateUserData,
-} = userSlice.actions;
+export const { logoutUser, updateUserData } = userSlice.actions;
 export const userReducer = userSlice.reducer;

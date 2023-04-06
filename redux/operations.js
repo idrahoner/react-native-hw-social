@@ -17,12 +17,12 @@ export const registerUser = createAsyncThunk(
       );
       await updateProfile(auth.currentUser, {
         displayName: userData.login,
-        photoURL: userData.avatarURI,
+        photoURL: userData.avatar,
       });
 
       const { email, uid, displayName, photoURL } = auth.currentUser;
 
-      return { email, id: uid, login: displayName, avatarURI: photoURL };
+      return { email, id: uid, login: displayName, avatar: photoURL };
     } catch (error) {
       console.log('error.message', error.message);
       return thunkApi.rejectWithValue(error.message);
@@ -40,7 +40,8 @@ export const loginUser = createAsyncThunk(
         userData.password
       );
       console.log('user', user);
-      return { email: user.email, id: user.uid };
+      const { email, uid, displayName, photoURL } = auth.currentUser;
+      return { email: email, id: uid, login: displayName, avatar: photoURL };
     } catch (error) {
       console.log('error.message', error.message);
       return thunkApi.rejectWithValue(error.message);
