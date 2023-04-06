@@ -6,7 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 
 export const registerUser = createAsyncThunk(
   'user/register',
@@ -67,21 +67,25 @@ export const refreshUser = createAsyncThunk(
   'auth/update',
   async (_, thunkApi) => {
     try {
-      return await new Promise((resolve, reject) =>
+      const user = await new Promise((resolve, reject) =>
         onAuthStateChanged(auth, (user) => {
           if (user) {
             const { email, uid, displayName, photoURL } = user;
-            resolve({
+
+            const updatedUser = {
               email: email,
               id: uid,
               login: displayName,
               avatar: photoURL,
-            });
+            };
+            resolve(updatedUser);
           } else {
-            return thunkApi.rejectWithValue('Unable to fetch user');
+            reject(new Error('Unable to fetch user'));
           }
         })
       );
+
+      return updatedUser;
     } catch ({ message }) {
       return thunkApi.rejectWithValue(message);
     }

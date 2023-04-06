@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, loginUser, logoutUser, refreshUser } from './operations';
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refreshUser,
+} from './userOperations';
 
 const initialUserState = {
   id: null,
@@ -59,10 +64,11 @@ const userSlice = createSlice({
         return { ...state, isLoading: false, error: action.payload };
       })
       .addCase(refreshUser.pending, (state) => {
+        console.log('this is refresh user pending');
         return { ...state, isLoading: true, error: null };
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        console.log('action.payload', action.payload);
+        console.log('this is refresh user fulfilled');
         return {
           ...state,
           isLoading: false,
@@ -71,6 +77,7 @@ const userSlice = createSlice({
         };
       })
       .addCase(refreshUser.rejected, (state, action) => {
+        console.log('this is refresh user rejected');
         return { ...state, isLoading: false, error: action.payload };
       });
   },
