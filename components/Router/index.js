@@ -13,6 +13,15 @@ import MapScreen from '../../Screens/MapScreen';
 import CommentsScreen from '../../Screens/CommentsScreen';
 import GoBackButton from '../GoBackButton';
 
+// import { auth } from '../../firebase';
+
+// import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+// console.log('auth', auth);
+// createUserWithEmailAndPassword(auth, 'hello@gmail.com', 'world123')
+//   .then(console.log)
+//   .catch(console.log);
+
 const MainStack = createNativeStackNavigator();
 
 export default function Router() {
