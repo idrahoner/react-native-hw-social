@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Dimensions } from 'react-native';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDimensions, getUser } from '../../redux';
+import { setDimensions, getUser, refreshUser } from '../../redux';
 
 import LoginScreen from '../../Screens/LoginScreen';
 import RegistrationScreen from '../../Screens/RegistrationScreen';
@@ -13,15 +13,6 @@ import MapScreen from '../../Screens/MapScreen';
 import CommentsScreen from '../../Screens/CommentsScreen';
 import GoBackButton from '../GoBackButton';
 
-// import { auth } from '../../firebase';
-
-// import { createUserWithEmailAndPassword } from 'firebase/auth';
-
-// console.log('auth', auth);
-// createUserWithEmailAndPassword(auth, 'hello@gmail.com', 'world123')
-//   .then(console.log)
-//   .catch(console.log);
-
 const MainStack = createNativeStackNavigator();
 
 export default function Router() {
@@ -29,13 +20,16 @@ export default function Router() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('this is useEffect');
+    dispatch(refreshUser());
     const subscription = Dimensions.addEventListener('change', ({ screen }) => {
       console.log('screen', screen);
       dispatch(setDimensions({ ...screen }));
     });
     return () => subscription?.remove();
-  }, []);
+  }, [dispatch]);
 
+  console.log('isAuthorized in Router', isAuthorized);
   return (
     <NavigationContainer>
       <MainStack.Navigator>

@@ -3,6 +3,7 @@ import {
   updateProfile,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -45,6 +46,31 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       console.log('error.message', error.message);
       return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const refreshUser = createAsyncThunk(
+  'auth/update',
+  async (_, thunkApi) => {
+    try {
+      return await new Promise((resolve, reject) =>
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            const { email, uid, displayName, photoURL } = user;
+            resolve({
+              email: email,
+              id: uid,
+              login: displayName,
+              avatar: photoURL,
+            });
+          } else {
+            return thunkApi.rejectWithValue('Unable to fetch user');
+          }
+        })
+      );
+    } catch ({ message }) {
+      return thunkApi.rejectWithValue(message);
     }
   }
 );
