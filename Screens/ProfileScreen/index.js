@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDimensions, getUser, getPosts, updateUserData } from '../../redux';
@@ -8,10 +9,16 @@ import LogoutButton from '../../components/LogoutButton';
 import PostItem from '../../components/PostItem';
 
 export default function ProfileScreen({ navigation }) {
+  const [ownPosts, setOwnPosts] = useState([]);
   const posts = useSelector(getPosts);
   const user = useSelector(getUser);
   const dimensions = useSelector(getDimensions);
   const dispatch = useDispatch();
+
+  useMemo(() => {
+    const filteredPosts = posts.filter((post) => post.owner === user.id);
+    setOwnPosts(filteredPosts);
+  }, [posts]);
 
   return (
     <BackgroundWithImage>
@@ -34,17 +41,19 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styles.userLogin}>{user.login || 'Anonymous'}</Text>
           </View>
           <View style={styles.postsContainer}>
-            {posts.map(({ id, imageURI, title, comments, likes, location }) => (
-              <PostItem
-                key={id}
-                navigation={navigation}
-                imageURI={imageURI}
-                title={title}
-                comments={comments}
-                likes={likes}
-                location={location}
-              />
-            ))}
+            {ownPosts.map(
+              ({ id, imageURI, title, comments, likes, location }) => (
+                <PostItem
+                  key={id}
+                  navigation={navigation}
+                  imageURI={imageURI}
+                  title={title}
+                  comments={comments}
+                  likes={likes}
+                  location={location}
+                />
+              )
+            )}
           </View>
         </FrameRoundedUpperEdge>
       </ScrollView>
