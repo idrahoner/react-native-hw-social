@@ -14,14 +14,19 @@ export const createPost = createAsyncThunk(
       await uploadBytes(storageRef, file);
       const url = await getDownloadURL(ref(storage, path));
       const docRef = await addDoc(collection(db, 'posts'), {
+        id: Date.now().toString(),
         imageURL: url,
         title: postData.title,
         location: postData.location,
+        owner: postData.owner,
+        likes: [],
+        comments: [],
       });
       const postItem = doc(db, 'posts', docRef.id);
       const docSnap = await getDoc(postItem);
 
       if (docSnap.exists()) {
+        console.log('docSnap.data()', docSnap.data());
         return docSnap.data();
       }
     } catch (error) {

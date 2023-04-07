@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createPost } from './postsOperations';
 
-const initialPostsState = [];
+const initialPostsState = { entities: [], isLoading: false, error: null };
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -9,13 +9,17 @@ const postsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createPost.pending, (state, action) => {
-        return state;
+        return { ...state, isLoading: true, error: null };
       })
       .addCase(createPost.fulfilled, (state, action) => {
-        return state;
+        return {
+          ...state,
+          isLoading: false,
+          entities: [action.payload, ...state.entities],
+        };
       })
       .addCase(createPost.rejected, (state, action) => {
-        return state;
+        return { ...state, isLoading: false, error: action.payload };
       });
   },
 });

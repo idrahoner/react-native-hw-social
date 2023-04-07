@@ -31,7 +31,7 @@ export default function PostItem({
             style={styles.navigationButton}
             onPress={() => navigation.navigate('CommentsScreen')}
           >
-            {comments === 0 ? (
+            {comments.length === 0 ? (
               <Ionicons
                 name="chatbubble-outline"
                 size={24}
@@ -46,9 +46,9 @@ export default function PostItem({
                 style={{ transform: [{ scaleX: -1 }] }}
               />
             )}
-            <Text style={styles.navigationTitle}>{comments}</Text>
+            <Text style={styles.navigationTitle}>{comments.length}</Text>
           </TouchableOpacity>
-          {likes >= 0 ? (
+          {likes ? (
             <TouchableOpacity
               style={styles.navigationButton}
               onPress={() => setIsLiked(!isLiked)}
@@ -59,7 +59,7 @@ export default function PostItem({
                 color={isLiked ? '#FF6C00' : '#BDBDBD'}
               />
               <Text style={styles.navigationTitle}>
-                {isLiked ? likes + 1 : likes}
+                {isLiked ? likes.length + 1 : likes.length}
               </Text>
             </TouchableOpacity>
           ) : null}

@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
-import { useDispatch } from 'react-redux';
-import { createPost } from '../../redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPost, getUser } from '../../redux';
 import PrimaryButton from '../../components/PrimaryButton';
 import CameraView from '../../components/CameraView';
 import PostImagePicker from '../../components/PostImagePicker';
@@ -21,6 +21,7 @@ export default function CreatePostsScreen({ navigation }) {
   const [position, setPosition] = useState(null);
   const [imageTitle, setImageTitle] = useState('');
   const [positionLabel, setPositionLabel] = useState('');
+  const user = useSelector(getUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function CreatePostsScreen({ navigation }) {
         imageURI,
         title: imageTitle,
         location: { label: positionLabel, position },
+        owner: user.id,
       })
     );
     setImageURI(null);
