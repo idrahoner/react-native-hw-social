@@ -26,12 +26,26 @@ export const createPost = createAsyncThunk(
       const docSnap = await getDoc(postItem);
 
       if (docSnap.exists()) {
-        console.log('docSnap.data()', docSnap.data());
         return docSnap.data();
       }
     } catch (error) {
-      console.log('error.message', error.message);
       return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAllPosts = createAsyncThunk(
+  'posts/getAllPosts',
+  async (_, thunkApi) => {
+    try {
+      const posts = [];
+      const querySnapshot = await getDocs(collection(db, 'posts'));
+      querySnapshot.forEach((doc) => {
+        posts.push(doc.data());
+      });
+      return posts;
+    } catch (error) {
+      thunkApi.rejectWithValue(error.message);
     }
   }
 );

@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import { getAllPosts } from '../../redux';
 import PostsScreen from '../PostsScreen';
 import ProfileScreen from '../ProfileScreen';
 import CreatePostsScreen from '../CreatePostsScreen';
@@ -11,6 +14,12 @@ import LogoutButton from '../../components/LogoutButton';
 const MainTab = createBottomTabNavigator();
 
 export default function Home() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch]);
+
   return (
     <MainTab.Navigator>
       <MainTab.Screen
