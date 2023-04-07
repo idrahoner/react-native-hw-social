@@ -26,7 +26,6 @@ export const registerUser = createAsyncThunk(
 
       return { email, id: uid, login: displayName, avatar: photoURL };
     } catch (error) {
-      console.log('error.message', error.message);
       return thunkApi.rejectWithValue(error.message);
     }
   }
@@ -41,11 +40,10 @@ export const loginUser = createAsyncThunk(
         userData.email,
         userData.password
       );
-      console.log('user', user);
+
       const { email, uid, displayName, photoURL } = auth.currentUser;
       return { email: email, id: uid, login: displayName, avatar: photoURL };
     } catch (error) {
-      console.log('error.message', error.message);
       return thunkApi.rejectWithValue(error.message);
     }
   }

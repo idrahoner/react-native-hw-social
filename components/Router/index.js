@@ -20,16 +20,13 @@ export default function Router() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('this is useEffect');
     dispatch(refreshUser());
     const subscription = Dimensions.addEventListener('change', ({ screen }) => {
-      console.log('screen', screen);
       dispatch(setDimensions({ ...screen }));
     });
     return () => subscription?.remove();
   }, [dispatch]);
 
-  console.log('isAuthorized in Router', isAuthorized);
   return (
     <NavigationContainer>
       <MainStack.Navigator>
