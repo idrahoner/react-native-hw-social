@@ -42,11 +42,11 @@ export default function ProfileScreen({ navigation }) {
           </View>
           <View style={styles.postsContainer}>
             {ownPosts.map(
-              ({ id, imageURI, title, comments, likes, location }) => (
+              ({ id, imageURL, title, comments, likes, location }) => (
                 <PostItem
                   key={id}
                   navigation={navigation}
-                  imageURI={imageURI}
+                  imageURI={imageURL}
                   title={title}
                   comments={comments}
                   likes={likes}

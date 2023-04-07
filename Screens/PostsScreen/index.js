@@ -11,11 +11,11 @@ export default function PostsScreen({ navigation }) {
     <ScrollView style={styles.container}>
       <UserInfo />
       <View>
-        {posts.map(({ id, imageURI, title, comments, location }) => (
+        {posts.map(({ id, imageURL, title, comments, location }) => (
           <PostItem
             key={id}
             navigation={navigation}
-            imageURI={imageURI}
+            imageURI={imageURL}
             title={title}
             comments={comments}
             location={location}
